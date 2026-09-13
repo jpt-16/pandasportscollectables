@@ -13,7 +13,7 @@ assets/css/styles.css design tokens + every component style
 assets/js/main.js     mobile menu, email signups, FAQ accordions
 assets/img/           favicon
 tools/sync-chrome.py  keeps the header/footer identical across pages
-vercel.json           clean URLs + asset caching
+vercel.json           clean URLs + cache headers
 ```
 
 There is no build step, so the header and footer are duplicated into each
@@ -86,6 +86,16 @@ explicitly rather than inheriting a host background.
 - The panda mark is a simplified geometric reading of the logo, drawn to stay
   legible at 40px in the header. Swap in the real artwork as SVG when you have
   it — replace `.lockup__mark` in `index.html` and re-run `sync-chrome.py`.
+
+## A note on caching
+
+`vercel.json` sets `/assets/*` to `max-age=0, must-revalidate`. Do **not**
+change this to `immutable` with a long max-age unless the filenames become
+content-hashed (`styles.a1b2c3.css`). These are plain paths, so an immutable
+header makes browsers serve a stale stylesheet against fresh HTML — the page
+renders with new markup and old CSS, which looks like the site is broken
+rather than cached. That happened once already; the `?v=2` on the stylesheet
+and script links is what flushed it.
 
 ## Claims the copy makes
 
