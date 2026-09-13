@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Sports Shed Co.">
-  <rect width="64" height="64" rx="10" fill="#16294E"/>
-  <path d="M16 54V27a16 16 0 0 1 32 0v27z" fill="#F3EEE3"/>
-  <path d="M21 34l11-8 11 8v7l-11-8-11 8z" fill="#C13230"/>
-  <text x="32" y="51" text-anchor="middle" font-family="'Barlow Condensed','Arial Narrow',sans-serif" font-weight="700" font-size="19" letter-spacing=".5" fill="#16294E">SS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Panda Sports Collectibles">
+  <rect width="64" height="64" rx="10" fill="#1FAE4D"/>
+  <g fill="#0A0B0C"><circle cx="17" cy="22" r="9"/><circle cx="47" cy="22" r="9"/></g>
+  <ellipse cx="32" cy="36" rx="23" ry="21" fill="#F4F4F1"/>
+  <ellipse cx="22.5" cy="33" rx="6.6" ry="8.4" fill="#0A0B0C" transform="rotate(-20 22.5 33)"/>
+  <ellipse cx="41.5" cy="33" rx="6.6" ry="8.4" fill="#0A0B0C" transform="rotate(20 41.5 33)"/>
+  <circle cx="24.3" cy="31.4" r="1.9" fill="#F4F4F1"/><circle cx="39.7" cy="31.4" r="1.9" fill="#F4F4F1"/>
+  <path d="M27.5 45.5c0-2.3 2-3.9 4.5-3.9s4.5 1.6 4.5 3.9-2 3.3-4.5 3.3-4.5-1-4.5-3.3z" fill="#0A0B0C"/>
 </svg>

@@ -1,8 +1,7 @@
-# The Sports Shed Co. — landing page
+# Panda Sports Collectibles
 
-A static landing page for an authenticated sports memorabilia house. No build
-step, no dependencies: open `index.html`, or serve the folder with any static
-host.
+A static storefront for authenticated sports memorabilia. No build step, no
+dependencies: open `index.html`, or serve the folder with any static host.
 
 ```
 index.html            landing page — all eight sections
@@ -27,40 +26,44 @@ python3 tools/sync-chrome.py --check  # exit 1 if any page is stale (CI)
 
 ## Design system
 
+The mark is black, white and one green, so the site is too.
+
 | Token | Value | Role |
 | --- | --- | --- |
-| `--ink` | `#0A1729` | vault ground — hero, rail, footer |
-| `--navy` | `#16294E` | brand navy from the mark; cards, ticker |
-| `--cream` | `#F3EEE3` | gallery ground — categories, authentication, newsletter |
-| `--crimson` | `#C13230` | the chevron accent; primary CTA, step rules |
-| `--brass` / `--brass-lite` | `#C0983F` / `#E6CD8E` | foil hairlines, seals, lot numbers |
-| `--mist` / `--slate` | `#A8B6CE` / `#55637C` | body text on dark / on cream |
+| `--ink` | `#0A0B0C` | panda black — the primary ground |
+| `--ink-2` / `--char` / `--char-2` | `#131416` `#1C1E21` `#24272C` | graphite steps for panels and plinths |
+| `--paper` / `--paper-2` | `#F4F4F1` `#E6E6E1` | panda white — the light bands |
+| `--green` | `#1FAE4D` | the accent from the wordmark rules; button fills, seals, lot numbers |
+| `--green-lite` | `#5BD983` | accent text and links on dark |
+| `--green-deep` | `#0E6B30` | accent text on paper, where `--green` fails contrast |
+| `--warn` | `#E0453A` | **negative states only** — declined items, invalid fields. Never decoration. |
+| `--steel` / `--slate` | `#8E9398` `#585D63` | body text on dark / on paper |
 
-Type is three roles: **Bodoni Moda** for display (auction-catalogue register),
-**Barlow Condensed** for lot numbers, labels and UI (it matches the condensed
-caps in the logo lockup), **Barlow** for body copy.
+**Green never carries white text.** Buttons are a green fill with `--ink`
+lettering, which is both the higher-contrast pairing and the one that matches
+the mark.
+
+Type is three roles: **Archivo** for display — the weight and width axes carry
+the wordmark's condensed oblique, so headlines set `font-stretch` rather than
+relying on stroke contrast; **Barlow Condensed** for lot numbers, labels and
+UI; **Barlow** for body copy.
 
 Two structural rules the pages stick to:
 
-- **Dark plinths everywhere.** Product art sits on a dark radial ground even
-  inside the cream bands, so goods always read as lit objects in a case.
+- **Dark plinths everywhere.** Product art sits on a neutral graphite radial
+  even inside the paper bands, so goods always read as lit objects in a case.
 - **Lot numbers, not decoration.** Every item carries a `Lot 0000` reference
   because each piece is a unique lot — the numbering encodes something true
   rather than ornamenting the layout.
 
-The page commits to a single visual theme (the brand is navy/cream), so it
-paints every colour explicitly rather than inheriting a host background.
+The site commits to a single visual theme, so it paints every colour
+explicitly rather than inheriting a host background.
 
 ## Placeholder content to replace before launch
 
 - **Authentication partners** (Veritas, Meridian, Hallmark, Holograph) are
   invented marks standing in for real third-party authenticators. Swap them for
   your actual partners' names and licensed logos.
-- **Athletes, lots and prices** are fictional. Real names must not appear
-  against listings that don't exist.
-- Product art is inline SVG in the `<symbol>` sprite at the top of `index.html`.
-  Replace `<use href="#i-…">` references with real photography when it's shot;
-  the plinth styling is built to sit behind cut-out product shots.
 - **Both forms are client-side only.** The Thursday-drop signup and the
   consignment submission validate and confirm in the browser and send nothing.
   Wire them to a handler (Formspree, a Vercel function, your CRM) before
@@ -77,10 +80,25 @@ paints every colour explicitly rather than inheriting a host background.
 - The **pricing claim** in the hero and trust bar ("14% below retail") is
   unverified. It is a comparative advertising claim and needs a substantiated
   basis before it goes near a real storefront.
+- **Athletes, lots and prices** are fictional. Real names must not appear
+  against listings that don't exist.
+- Product art is inline SVG in the `<symbol>` sprite at the top of each page.
+  Replace `<use href="#i-…">` references with real photography when it's shot;
+  the plinth styling is built to sit behind cut-out product shots.
+- The panda mark is a simplified geometric reading of the logo, drawn to stay
+  legible at 40px in the header. Swap in the real artwork as SVG when you have
+  it — replace `.lockup__mark` in `index.html` and re-run `sync-chrome.py`.
+
+## Still carrying the old name
+
+The git repository, its directory, and the Vercel project are all still
+`thesportshedco`. Nothing in the site depends on them, but renaming the Vercel
+project (and pointing a `pandasports` domain at it) is worth doing before this
+is shared.
 
 ## Accessibility notes
 
 Skip link, visible focus rings, `aria-expanded` on the menu, `role="status"` on
-the signup response, and a `prefers-reduced-motion` block that disables the hero
-lift. Crimson is used for large text and fills only — it doesn't carry small
-body copy on the navy ground.
+form responses, and a `prefers-reduced-motion` block that disables the hero
+lift. Every accent pairing is checked: `--green-lite` on ink, `--green-deep` on
+paper, and `--ink` on green fills all clear 4.5:1.
