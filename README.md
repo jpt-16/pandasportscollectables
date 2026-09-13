@@ -31,12 +31,13 @@ The mark is black, white and one green, so the site is too.
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `--ink` | `#0A0B0C` | panda black — the primary ground |
-| `--ink-2` / `--char` / `--char-2` | `#131416` `#1C1E21` `#24272C` | graphite steps for panels and plinths |
-| `--paper` / `--paper-2` | `#F4F4F1` `#E6E6E1` | panda white — the light bands |
-| `--green` | `#1FAE4D` | the accent from the wordmark rules; button fills, seals, lot numbers |
-| `--green-lite` | `#5BD983` | accent text and links on dark |
-| `--green-deep` | `#0E6B30` | accent text on paper, where `--green` fails contrast |
+| `--ink` | `#0F0F10` | the brand's dark background — matches the icon PNG's own ground exactly |
+| `--black` | `#0B0B0C` | brand ink; text on paper, and lettering on green fills |
+| `--ink-2` / `--char` / `--char-2` | `#161618` `#1F2023` `#2A2B2F` | graphite steps for panels and plinths |
+| `--paper` / `--paper-2` | `#F4F4F1` `#E6E6E1` | the light bands |
+| `--green` | `#40B75B` | brand green, straight from the logo handoff |
+| `--green-lite` | `#7BDC96` | accent text and links on dark |
+| `--green-deep` | `#15773B` | accent text on paper — `--green` is only 2.3:1 there and fails |
 | `--warn` | `#E0453A` | **negative states only** — declined items, invalid fields. Never decoration. |
 | `--steel` / `--slate` | `#8E9398` `#585D63` | body text on dark / on paper |
 
@@ -96,18 +97,29 @@ explicitly rather than inheriting a host background.
   legible at 40px in the header. Swap in the real artwork as SVG when you have
   it — replace `.lockup__mark` in `index.html` and re-run `sync-chrome.py`.
 
-## The panda mark
+## Brand assets
 
-`.lockup__mark` in `index.html` is a hand-drawn SVG of the logo — the angled
-eye patches, ears, muzzle and shouldered crest. Two deliberate departures from
-the artwork: the shoulders and ears are graphite (`#31353C`) rather than pure
-black, because true black disappears against the near-black header; and the
-detail is simplified to survive 46px. If you get the logo as vector artwork,
-drop it in and re-run `tools/sync-chrome.py` — keep the graphite adaptation for
-anything sitting on the dark ground.
+`assets/brand/` holds the real logo files from the brand handoff — not
+redrawn, not traced.
 
-The wordmark is Exo 2 italic, chosen for the sheared angular terminals in the
-real logo. Headlines stay on Archivo.
+- `panda-icon.png` — the header and footer mark. Cropped from
+  `panda-icon-512-dark.png` to the artwork's own bounds (the source has ~40px
+  of dead margin) and resized to 180×121, which covers the 58×39 display slot
+  at 3x.
+- `favicon-16.png`, `favicon-32.png`, `apple-touch-icon-180.png` — shipped as
+  supplied, linked per the handoff's markup.
+
+**Use the `-dark` icon on dark grounds, never the transparent one.** The
+transparent artwork is solid black with no keyline, so on a near-black header
+the ears and shoulders vanish and only the face floats. The `-dark` version has
+a white keyline drawn for exactly this. Its background is `#0F0F10`, which is
+why `--ink` is that value and why the masthead is opaque rather than
+translucent — the icon's own ground has to match the bar it sits on.
+
+The wordmark is set live in **Anton**, at the proportions from
+`panda-wordmark.svg`: PANDA 150 / SPORTS 54 / COLLECTIBLES 54, letter-spacing
+-3 / +10 / +8 at that scale. Anton is headline and wordmark only, per the
+handoff — never body copy. Archivo still sets the hero and section headings.
 
 ## A note on caching
 
