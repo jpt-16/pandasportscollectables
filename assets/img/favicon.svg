@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Sports Shed Co.">
+  <rect width="64" height="64" rx="10" fill="#16294E"/>
+  <path d="M16 54V27a16 16 0 0 1 32 0v27z" fill="#F3EEE3"/>
+  <path d="M21 34l11-8 11 8v7l-11-8-11 8z" fill="#C13230"/>
+  <text x="32" y="51" text-anchor="middle" font-family="'Barlow Condensed','Arial Narrow',sans-serif" font-weight="700" font-size="19" letter-spacing=".5" fill="#16294E">SS</text>
+</svg>
