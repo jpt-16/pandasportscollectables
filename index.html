@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Panda Sports Collectibles</title>
-<meta name="description" content="Authentic memorabilia, priced for fans. Signed jerseys, balls, cards, game-used gear and photography — authenticated before listing, with no buyer's premium.">
+<meta name="description" content="Authentic memorabilia, priced for fans. Signed jerseys, balls, cards, game-used gear and photography — run by four brothers. Launching soon.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,14 +68,6 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
-<p class="ticker">
-  <span>Authentic memorabilia, priced for fans</span>
-  <span aria-hidden="true" class="ticker__dot"></span>
-  <span>No buyer's premium &mdash; the listed price is the price</span>
-  <span aria-hidden="true" class="ticker__dot"></span>
-  <span>Questions? Ask us anything</span>
-</p>
-
 <header class="masthead" id="top">
   <div class="wrap masthead__inner">
     <a class="lockup" href="#top" aria-label="Panda Sports Collectibles — home">
@@ -97,20 +89,14 @@
     </a>
 
     <nav class="nav" id="nav" aria-label="Primary">
-      <a href="index.html#categories">Shop</a>
-      <a href="index.html#authentication">Authentication</a>
+      <a href="index.html#why">Why Panda</a>
+      <a href="index.html#how">How it works</a>
       <a href="about.html">About</a>
       <a href="faq.html">FAQ</a>
     </nav>
 
     <div class="masthead__tools">
-      <a class="tool" href="index.html#lots" aria-label="Search the shop">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </a>
-      <a class="tool" href="index.html#lots" aria-label="Your cart, 2 items">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1.2 12.5H6.2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 9.5V7a3 3 0 0 1 6 0v2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <span class="tool__count">2</span>
-      </a>
+      <a class="btn btn--primary btn--sm" href="index.html#notify">Notify me</a>
       <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav">
         <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
         <span class="sr">Menu</span>
@@ -122,372 +108,153 @@
 
 <main id="main">
 
-  <!-- ───────────────────────────── HERO ───────────────────────────── -->
-  <section class="hero">
-    <div class="wrap hero__inner">
-      <div class="hero__copy">
-        <p class="eyebrow eyebrow--accent">Authentic sports memorabilia</p>
-        <h1 class="hero__title">Authentic Memorabilia.<br><em>Priced for Fans.</em></h1>
-        <p class="lede">Signed jerseys, balls, cards, game-used gear and photography &mdash; sourced through the trade and checked against its paperwork before it goes up. We keep our margins tight on purpose, so starting or growing a collection doesn't have to mean saving up for months.</p>
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="#lots">Shop the collection</a>
-          <a class="btn btn--ghost" href="#authentication">How we authenticate <svg class="btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
-        </div>
-        <ul class="hero__points">
-          <li><svg aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>Checked against its paperwork</li>
-          <li><svg aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>No buyer's premium</li>
-          <li><svg aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>Run by four brothers</li>
-        </ul>
+  <!-- ───────────────────────── HERO ───────────────────────── -->
+  <section class="premarq">
+    <div class="premarq__wrap">
+      <p class="soon">Launching soon</p>
+      <div class="mline"><span>Authentic</span><i class="bar"></i></div>
+      <div class="mline"><i class="bar"></i><span>Memorabilia</span></div>
+      <div class="mline mline--accent"><span>Priced for fans</span><i class="bar"></i></div>
+
+      <div class="premarq__foot">
+        <p class="premarq__lede">Four brothers opening a shop for people who want the real thing on their wall without paying auction-house money for it. We're not open yet &mdash; leave your email and we'll tell you the day we are.</p>
+
+        <form class="signup" id="signup-hero">
+        <label class="sr" for="email-hero">Email address</label>
+        <input id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+          <button class="btn btn--primary" type="submit">Notify me</button>
+          <p class="signup__msg" role="status"></p>
+        </form>
       </div>
-
-      <figure class="case">
-        <svg class="case__svg" viewBox="0 0 520 664" role="img" aria-labelledby="case-title">
-          <title id="case-title">A signed game-worn jersey displayed in an arch-topped vitrine</title>
-          <defs>
-            <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#31353C" stop-opacity=".55"/>
-              <stop offset=".5" stop-color="#141518" stop-opacity=".9"/>
-              <stop offset="1" stop-color="#0A0B0C" stop-opacity="1"/>
-            </linearGradient>
-            <radialGradient id="gSpot" cx=".5" cy=".06" r=".78">
-              <stop offset="0" stop-color="#F2FCF5" stop-opacity=".30"/>
-              <stop offset=".45" stop-color="#5BD983" stop-opacity=".10"/>
-              <stop offset="1" stop-color="#0A0B0C" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="gFoil" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#0E6B30"/><stop offset=".38" stop-color="#5BD983"/>
-              <stop offset=".62" stop-color="#1FAE4D"/><stop offset="1" stop-color="#0E6B30"/>
-            </linearGradient>
-            <clipPath id="cArch"><path d="M78 604V262a182 182 0 0 1 364 0v342z"/></clipPath>
-          </defs>
-
-          <path d="M60 620V260a200 200 0 0 1 400 0v360z" fill="#131416" stroke="url(#gFoil)" stroke-width="2.5"/>
-          <path d="M78 604V262a182 182 0 0 1 364 0v342z" fill="url(#gGlass)"/>
-
-          <g clip-path="url(#cArch)">
-            <rect x="78" y="80" width="364" height="524" fill="url(#gSpot)"/>
-
-            <!-- jersey -->
-            <g class="case__jersey">
-              <path d="M214 206c14-11 78-11 92 0l46 19c21 9 31 25 33 47l3 30-34 6-6 8 4 176c-42 11-146 11-188 0l4-176-6-8-34-6 3-30c2-22 12-38 33-47z" fill="#2F343B"/>
-              <path d="M214 206c16 26 76 26 92 0l-14 9c-18 11-46 11-64 0z" fill="#0D0E10"/>
-              <path d="M192 288l68-40 68 40v26l-68-40-68 40z" fill="#1FAE4D"/>
-              <text x="260" y="450" text-anchor="middle" class="case__num">24</text>
-              <text x="260" y="356" text-anchor="middle" class="case__name">VANCE</text>
-              <path d="M190 486c20-30 30 22 48-10 14-25 22 26 40-4 14-23 22 24 42-8" fill="none" stroke="#5BD983" stroke-width="3.4" stroke-linecap="round" opacity=".95"/>
-              <path d="M196 502c38 8 84 8 122-2" fill="none" stroke="#5BD983" stroke-width="2" stroke-linecap="round" opacity=".55"/>
-            </g>
-
-            <!-- glass highlight -->
-            <path d="M96 604L268 78h44L140 604z" fill="#FFFFFF" opacity=".035"/>
-            <path d="M330 604L430 300h22L352 604z" fill="#FFFFFF" opacity=".025"/>
-          </g>
-
-          <path d="M78 604h364" stroke="url(#gFoil)" stroke-width="1.5" opacity=".7"/>
-          <rect x="44" y="620" width="432" height="30" rx="3" fill="#1C1E21" stroke="url(#gFoil)" stroke-width="1.5"/>
-        </svg>
-
-        <figcaption class="lotcard">
-          <p class="lotcard__no">Jerseys</p>
-          <p class="lotcard__athlete">Marcus Vance</p>
-          <p class="lotcard__desc">Signed game-worn jersey &mdash; authenticated, with its certificate included.</p>
-          <p class="lotcard__foot"><span class="price">$12,400</span><span class="chip"><svg class="chip__seal" aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Authenticated</span></p>
-        </figcaption>
-      </figure>
     </div>
-  </section>
 
-  <!-- ───────────────────────── TRUST BAR ───────────────────────── -->
-  <section class="trust" aria-label="Authentication">
-    <!-- CONFIRM: add the authenticators that actually appear on your stock
-         (PSA/DNA, JSA, Beckett, Fanatics, etc.) once you know which recur.
-         Only display a logo you have permission to use. -->
-    <div class="wrap trust__inner">
-      <p class="trust__claim">We don't write our own certificates. <strong>Whatever documentation comes with a piece, you get</strong> &mdash; and the listing tells you exactly what that is, rather than leaving you to assume.</p>
-      <a class="btn btn--ghost" href="#authentication">See how it works <svg class="btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
-    </div>
+    <div class="belt" aria-hidden="true"><div>
+      <span>No buyer&rsquo;s premium</span><i>&bull;</i><span>Four brothers, one shop</span><i>&bull;</i><span>Checked in hand</span><i>&bull;</i><span>The listed price is the price</span><i>&bull;</i><span>We don&rsquo;t write our own certificates</span><i>&bull;</i>
+      <span>No buyer&rsquo;s premium</span><i>&bull;</i><span>Four brothers, one shop</span><i>&bull;</i><span>Checked in hand</span><i>&bull;</i><span>The listed price is the price</span><i>&bull;</i><span>We don&rsquo;t write our own certificates</span><i>&bull;</i>
+    </div></div>
   </section>
 
   <!-- ───────────────────────── WHY PANDA ───────────────────────── -->
-  <section class="section section--gallery" id="why">
+  <section class="section section--vault" id="why">
     <div class="wrap">
       <header class="secthead">
-        <p class="eyebrow">Why Panda</p>
-        <h2 class="secthead__title">Three things we get right</h2>
-        <p class="secthead__sub">We're collectors selling to collectors. That shapes what we stock, how we check it, and what we charge for it.</p>
+        <p class="eyebrow eyebrow--accent">Why Panda</p>
+        <h2 class="secthead__title">Three things we intend to get right</h2>
+        <p class="secthead__sub">We're collectors before we're a shop. That's going to shape what we stock, how we check it, and what we charge for it.</p>
       </header>
 
       <ul class="creed creed--three">
         <li>
           <svg class="creed__icon" aria-hidden="true" focusable="false"><use href="#i-shield"></use></svg>
-          <h3>Authenticity, not assumptions</h3>
-          <p>We don't issue our own certificates &mdash; paperwork written by the person selling you the item is worth very little, and that's half of what's wrong with this market. Whatever documentation a piece carries is what you get, described on the listing in plain terms so you know what you're buying.</p>
+          <h3>Say what a piece actually is</h3>
+          <p>We won't write our own certificates &mdash; paperwork from the person selling you the item is worth very little, and that's half of what's wrong with this market. Every listing will state exactly what documentation a piece carries, including when the answer is &ldquo;none&rdquo;.</p>
         </li>
         <li>
           <svg class="creed__icon" aria-hidden="true" focusable="false"><use href="#i-box"></use></svg>
-          <h3>A selection worth browsing</h3>
-          <p>Jerseys, signed balls, trading cards, game-used gear and photography, across the sports people actually follow. Rookie cards and modest signed pieces sit alongside the headline items, because a collection has to start somewhere.</p>
+          <h3>Stock a collection worth browsing</h3>
+          <p>Signed jerseys, balls, trading cards, game-used gear and photography, across the sports people actually follow. Rookie cards and modest signed pieces alongside the headline items, because a collection has to start somewhere.</p>
         </li>
         <li>
           <svg class="creed__icon" aria-hidden="true" focusable="false"><use href="#i-tag"></use></svg>
-          <h3>Priced for fans</h3>
-          <p>No buyer's premium, no auction fees, no inflated &ldquo;estimate&rdquo; to negotiate down from. The price on the listing is the price you pay, and we keep our margin tight because we'd rather sell a piece to someone who'll actually display it.</p>
+          <h3>Price it for fans</h3>
+          <p>No buyer's premium, no auction fees, no inflated &ldquo;estimate&rdquo; to negotiate down from. The price on the listing will be the price you pay, and we'll keep our margin tight because we'd rather sell a piece to someone who'll display it.</p>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- ───────────────────────── CATEGORIES ───────────────────────── -->
-  <section class="section section--gallery" id="categories">
+  <!-- ───────────────────────── HOW IT WORKS ───────────────────────── -->
+  <section class="section section--gallery" id="how">
     <div class="wrap">
       <header class="secthead">
-        <p class="eyebrow">The collection</p>
-        <h2 class="secthead__title">Shop by category</h2>
-        <p class="secthead__sub">Everything listed is in hand and authenticated. We don't sell pieces we haven't held.</p>
-      </header>
-
-      <ul class="cats">
-        <li class="cat cat--wide">
-          <a href="#lots">
-            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-jersey"></use></svg></span>
-            <span class="cat__meta"><span class="cat__name">Jerseys</span><span class="cat__note">Game-worn, photo-matched, signed</span></span>
-            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
-          </a>
-        </li>
-        <li class="cat cat--wide">
-          <a href="#lots">
-            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg></span>
-            <span class="cat__meta"><span class="cat__name">Autographed Balls</span><span class="cat__note">Match balls &amp; inscribed singles</span></span>
-            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
-          </a>
-        </li>
-        <li class="cat">
-          <a href="#lots">
-            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-card"></use></svg></span>
-            <span class="cat__meta"><span class="cat__name">Trading Cards</span><span class="cat__note">Graded 8.0 and above</span></span>
-            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
-          </a>
-        </li>
-        <li class="cat">
-          <a href="#lots">
-            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-bat"></use></svg></span>
-            <span class="cat__meta"><span class="cat__name">Game-Used Gear</span><span class="cat__note">Bats, gloves, boots, helmets</span></span>
-            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
-          </a>
-        </li>
-        <li class="cat">
-          <a href="#lots">
-            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-photo"></use></svg></span>
-            <span class="cat__meta"><span class="cat__name">Photographs</span><span class="cat__note">Signed, matted &amp; framed</span></span>
-            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ───────────────────────── LOTS / CAROUSEL ───────────────────────── -->
-  <section class="section section--vault" id="lots">
-    <div class="wrap">
-      <header class="secthead secthead--row">
-        <div>
-          <p class="eyebrow eyebrow--accent">In the shop</p>
-          <h2 class="secthead__title">New arrivals</h2>
-        </div>
-        <div class="railtools">
-          <div class="tabs" role="tablist" aria-label="Filter lots">
-            <button class="tab is-on" type="button" role="tab" aria-selected="true" data-filter="best">Best sellers</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="new">New arrivals</button>
-          </div>
-          <div class="railnav">
-            <button class="railbtn" type="button" data-scroll="-1" aria-label="Previous lots"><svg aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></button>
-            <button class="railbtn" type="button" data-scroll="1" aria-label="Next lots"><svg aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></button>
-          </div>
-        </div>
-      </header>
-    </div>
-
-    <div class="wrap railhold">
-    <ul class="rail" id="rail" tabindex="0" aria-label="Lot carousel">
-      <li class="lot" data-list="best new">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-jersey"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Authenticated</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Jerseys</span>
-            <span class="lot__athlete">Marcus Vance</span>
-            <span class="lot__desc">Signed game-worn jersey</span>
-            <span class="lot__foot"><span class="price">$12,400</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-      <li class="lot" data-list="best">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-card"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Graded 9.5</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Trading Cards</span>
-            <span class="lot__athlete">Terrence Hale</span>
-            <span class="lot__desc">Rookie card, graded and sealed</span>
-            <span class="lot__foot"><span class="price">$18,600</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-      <li class="lot" data-list="best new">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-bat"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Authenticated</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Game-Used Gear</span>
-            <span class="lot__athlete">Andre Solis</span>
-            <span class="lot__desc">Game-used bat, cracked &amp; taped</span>
-            <span class="lot__foot"><span class="price">$7,300</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-      <li class="lot" data-list="best">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Authenticated</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Autographed Balls</span>
-            <span class="lot__athlete">Rosa Delgado</span>
-            <span class="lot__desc">Signed match ball, inscribed</span>
-            <span class="lot__foot"><span class="price">$2,190</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-      <li class="lot" data-list="new">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-boot"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Authenticated</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Game-Used Gear</span>
-            <span class="lot__athlete">Dele Okafor</span>
-            <span class="lot__desc">Match-worn boots, unwashed</span>
-            <span class="lot__foot"><span class="price">$4,850</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-      <li class="lot" data-list="new">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-photo"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Authenticated</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Photographs</span>
-            <span class="lot__athlete">June Whitaker</span>
-            <span class="lot__desc">Signed print, 16&times;20, framed</span>
-            <span class="lot__foot"><span class="price">$1,275</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-      <li class="lot" data-list="new best">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-jersey"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Authenticated</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Jerseys</span>
-            <span class="lot__athlete">Nia Brantley</span>
-            <span class="lot__desc">Signed title-bout robe</span>
-            <span class="lot__foot"><span class="price">$3,940</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-      <li class="lot" data-list="new">
-        <a href="#lots">
-          <span class="lot__plinth">
-            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-card"></use></svg>
-            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Graded 9.0</span>
-          </span>
-          <span class="lot__body">
-            <span class="lot__no">Trading Cards</span>
-            <span class="lot__athlete">Cal Rennick</span>
-            <span class="lot__desc">Signed rookie parallel, numbered</span>
-            <span class="lot__foot"><span class="price">$2,650</span><span class="lot__go">View lot</span></span>
-          </span>
-        </a>
-      </li>
-    </ul>
-    </div>
-
-    <div class="wrap railfoot">
-      <p id="railcount" class="railfoot__count" aria-live="polite">Showing 5 best-selling items</p>
-      <a class="btn btn--ghost" href="#lots">Browse everything <svg class="btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
-    </div>
-  </section>
-
-  <!-- ───────────────────────── AUTHENTICATION ───────────────────────── -->
-  <section class="section section--gallery" id="authentication">
-    <div class="wrap">
-      <header class="secthead">
-        <p class="eyebrow">How authentication works</p>
+        <p class="eyebrow">How it will work</p>
         <h2 class="secthead__title">Three steps, every item</h2>
-        <p class="secthead__sub">Nothing goes up until it has been through all three. It isn't complicated &mdash; it's just done the same way every time.</p>
+        <p class="secthead__sub">Nothing complicated. It just gets done the same way every time.</p>
       </header>
 
       <ol class="steps">
         <li class="step">
           <span class="step__seal"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><b>1</b></span>
           <h3 class="step__title">Sourced</h3>
-          <p>Stock comes through established auction houses and dealers in the memorabilia trade, not from a supplier we've never met and a photograph we didn't take.</p>
+          <p>Stock comes through established auction houses and dealers in the memorabilia trade &mdash; not from a supplier we've never met and a photograph we didn't take.</p>
         </li>
         <li class="step">
           <span class="step__seal"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><b>2</b></span>
           <h3 class="step__title">Checked</h3>
-          <p>Every item arrives here first. We check the piece against whatever documentation came with it, and against the condition we're about to describe. Nothing is drop-shipped.</p>
+          <p>Every item arrives with us first. We check the piece against whatever documentation came with it, and against the condition we're about to describe. Nothing is drop-shipped.</p>
         </li>
         <li class="step">
           <span class="step__seal"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><b>3</b></span>
           <h3 class="step__title">Listed</h3>
-          <p>The listing shows real photographs, states exactly what documentation the piece carries, and gives one price with nothing added at checkout.</p>
+          <p>Real photographs, a plain statement of what the piece carries, and one price with nothing added at checkout.</p>
         </li>
       </ol>
     </div>
   </section>
 
+  <!-- ───────────────────────── WHAT'S COMING ───────────────────────── -->
+  <section class="section section--vault" id="coming">
+    <div class="wrap">
+      <header class="secthead secthead--row">
+        <div>
+          <p class="eyebrow eyebrow--accent">The shop</p>
+          <h2 class="secthead__title">What we'll be stocking</h2>
+        </div>
+        <p class="secthead__sub">Five categories at launch. Inventory goes up as it clears the bench &mdash; there's nothing to browse yet, and we'd rather show you nothing than show you a mock-up.</p>
+      </header>
 
-  <!-- ───────────────────────── NEWSLETTER ───────────────────────── -->
-  <section class="section section--gallery" id="drop">
+      <ul class="coming">
+        <li><svg aria-hidden="true" focusable="false"><use href="#i-jersey"></use></svg><b>Signed jerseys</b><span>Game-worn and replica, signed</span></li>
+        <li><svg aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><b>Balls</b><span>Match balls and inscribed singles</span></li>
+        <li><svg aria-hidden="true" focusable="false"><use href="#i-card"></use></svg><b>Trading cards</b><span>Graded, slabbed and raw</span></li>
+        <li><svg aria-hidden="true" focusable="false"><use href="#i-bat"></use></svg><b>Game-used gear</b><span>Bats, gloves, boots, helmets</span></li>
+        <li><svg aria-hidden="true" focusable="false"><use href="#i-photo"></use></svg><b>Photography</b><span>Signed, matted and framed</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── WHO ───────────────────────── -->
+  <section class="section section--gallery" id="who">
+    <div class="wrap who">
+      <div>
+        <p class="eyebrow">Who we are</p>
+        <h2 class="secthead__title">Four brothers</h2>
+        <p class="secthead__sub">Josh runs buying and pricing. Jake runs the site and everything that happens after you click buy. Nolan and Liam handle social. When you email, one of the four of us reads it &mdash; there's nobody else to pass it to.</p>
+        <a class="btn btn--ghost" href="about.html">More about us <svg class="btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+      </div>
+      <ul class="who__plates" aria-hidden="true">
+        <li>JO</li><li>JA</li><li>NO</li><li>LI</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── NOTIFY ───────────────────────── -->
+  <section class="section section--vault" id="notify">
     <div class="wrap">
       <div class="drop">
         <div class="drop__copy">
-          <p class="eyebrow eyebrow--accent">Stay in the loop</p>
-          <h2 class="drop__title">Get notified of new drops</h2>
-          <p>New pieces land regularly and the good ones don't sit around. Subscribe and we'll email you when something arrives &mdash; that's all we use your address for.</p>
+          <p class="eyebrow eyebrow--accent">Opening day</p>
+          <h2 class="drop__title">Know before everyone else</h2>
+          <p>We haven't set a date yet. When we do, subscribers hear first &mdash; and they get first look at the opening stock before it goes up publicly. That's all we'll use your address for.</p>
         </div>
-        <form class="drop__form" id="dropform" novalidate>
-          <label class="sr" for="dropemail">Email address</label>
-          <div class="field">
-            <input id="dropemail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
-            <button class="btn btn--primary" type="submit">Notify me</button>
-          </div>
-          <p class="drop__msg" id="dropmsg" role="status"></p>
-          <p class="drop__fine">Unsubscribe in one click. We never sell or share your details.</p>
+        <form class="signup signup--stack" id="signup-foot">
+          <label class="sr" for="email-foot">Email address</label>
+          <input id="email-foot" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+          <button class="btn btn--primary" type="submit">Notify me</button>
+          <p class="signup__msg" role="status"></p>
+          <p class="signup__fine">Unsubscribe in one click. We never sell or share your details.</p>
         </form>
       </div>
     </div>
   </section>
+
 </main>
 
 <!-- CHROME:FOOT:START -->
 <footer class="foot">
   <div class="wrap foot__inner">
     <div class="foot__brand">
-      <a class="lockup lockup--foot" href="#top" aria-label="Panda Sports Collectibles — home">
+      <a class="lockup lockup--foot" href="index.html#top" aria-label="Panda Sports Collectibles — home">
       <svg class="lockup__mark" viewBox="0 0 120 112" aria-hidden="true" focusable="false">
         <g fill="#0A0B0C" stroke="#F4F4F1" stroke-width="5"><circle cx="27" cy="29" r="17.5"/><circle cx="93" cy="29" r="17.5"/></g>
         <ellipse cx="60" cy="62" rx="45" ry="41" fill="#F4F4F1"/>
@@ -504,55 +271,43 @@
         <span class="lockup__sub">Collectibles</span>
       </span>
     </a>
-      <p class="foot__blurb">Authentic sports memorabilia, priced so that collecting stays something a fan can actually do.</p>
-      <!-- Online only — no address shown by design. -->
+      <p class="foot__blurb">Authentic sports memorabilia, priced so that collecting stays something a fan can actually do. Launching soon.</p>
       <ul class="social">
-        <li><a href="#top" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a></li>
-        <li><a href="#top" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 9.2l5 2.8-5 2.8z" fill="currentColor"/></svg></a></li>
-        <li><a href="#top" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4l16 16M20 4L4 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a></li>
-        <li><a href="#top" aria-label="Email the vault"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 8l7.5 5.5L19.5 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a href="index.html#notify" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a></li>
+        <li><a href="index.html#notify" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 3v11.2a3.4 3.4 0 1 1-2.8-3.35" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 4.4c.9 2.2 2.5 3.3 4.9 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a></li>
+        <li><a href="index.html#notify" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4l16 16M20 4L4 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a></li>
+        <li><a href="faq.html#contact" aria-label="Email us"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 8l7.5 5.5L19.5 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
       </ul>
+      <!-- CONFIRM: point the social icons at your real profiles once they exist. -->
     </div>
 
     <nav class="foot__cols" aria-label="Footer">
       <div>
-        <h3>Shop</h3>
-        <ul>
-          <li><a href="index.html#categories">Jerseys</a></li>
-          <li><a href="index.html#categories">Autographed balls</a></li>
-          <li><a href="index.html#categories">Trading cards</a></li>
-          <li><a href="index.html#categories">Game-used gear</a></li>
-          <li><a href="index.html#categories">Photographs</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Help</h3>
-        <ul>
-          <li><a href="index.html#authentication">How we authenticate</a></li>
-          <li><a href="faq.html#authentication">Certificates</a></li>
-          <li><a href="faq.html#authentication">Authenticity guarantee</a></li>
-          <li><a href="faq.html#payment">Payment</a></li>
-          <li><a href="faq.html#contact">Contact us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Orders</h3>
-        <ul>
-          <li><a href="faq.html#shipping">Shipping</a></li>
-          <li><a href="faq.html#returns">Returns</a></li>
-          <li><a href="faq.html#shipping">Packing &amp; delivery</a></li>
-          <li><a href="faq.html#shipping">Order tracking</a></li>
-          <li><a href="faq.html#returns">Damaged items</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Company</h3>
+        <h3>Panda</h3>
         <ul>
           <li><a href="about.html">About us</a></li>
           <li><a href="about.html#team">The four of us</a></li>
           <li><a href="about.html#promise">What we promise</a></li>
           <li><a href="index.html#why">Why Panda</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <ul>
+          <li><a href="index.html#how">How it works</a></li>
           <li><a href="faq.html">FAQ</a></li>
+          <li><a href="faq.html#authentication">Authenticity</a></li>
+          <li><a href="faq.html#contact">Contact us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Opening soon</h3>
+        <ul class="foot__plain">
+          <li>Signed jerseys</li>
+          <li>Balls</li>
+          <li>Trading cards</li>
+          <li>Game-used gear</li>
+          <li>Photography</li>
         </ul>
       </div>
     </nav>
@@ -561,9 +316,8 @@
   <div class="wrap foot__legal">
     <p>&copy; 2026 Panda Sports Collectibles.</p>
     <ul>
-      <li><a href="#top">Terms</a></li>
-      <li><a href="#top">Privacy</a></li>
-      <li><a href="#top">Accessibility</a></li>
+      <li><a href="index.html#notify">Get notified</a></li>
+      <li><a href="faq.html#contact">Contact</a></li>
     </ul>
   </div>
 </footer>

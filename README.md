@@ -1,14 +1,16 @@
 # Panda Sports Collectibles
 
-A static storefront for authenticated sports memorabilia. No build step, no
+A static **pre-launch** site for Panda Sports Collectibles. The shop isn't
+open, so there is no catalogue, no cart and no checkout — the homepage exists
+to explain the proposition and collect email addresses. No build step, no
 dependencies: open `index.html`, or serve the folder with any static host.
 
 ```
-index.html            landing page — all eight sections
+index.html            pre-launch homepage — hero, why, how, what's coming, signup
 about.html            origin story, vault, team, philosophy, figures
 faq.html              authentication, shipping, returns, payment
 assets/css/styles.css design tokens + every component style
-assets/js/main.js     mobile menu, lot rail, accordions, drop signup
+assets/js/main.js     mobile menu, email signups, FAQ accordions
 assets/img/           favicon
 tools/sync-chrome.py  keeps the header/footer identical across pages
 vercel.json           clean URLs + asset caching
@@ -49,11 +51,12 @@ UI; **Barlow** for body copy.
 
 Two structural rules the pages stick to:
 
-- **Dark plinths everywhere.** Product art sits on a neutral graphite radial
-  even inside the paper bands, so goods always read as lit objects in a case.
-- **Lot numbers, not decoration.** Every item carries a `Lot 0000` reference
-  because each piece is a unique lot — the numbering encodes something true
-  rather than ornamenting the layout.
+- **Nothing is shown that doesn't exist.** There are no product cards, no
+  prices and no inventory counts, because there is no inventory yet. The
+  "what we'll be stocking" section lists categories and says plainly that
+  there's nothing to browse.
+- **The hero is typographic.** No illustration, no mocked-up product. The
+  green rules from the logo are the layout system.
 
 The site commits to a single visual theme, so it paints every colour
 explicitly rather than inheriting a host background.
@@ -66,18 +69,17 @@ explicitly rather than inheriting a host background.
 - **The newsletter signup is client-side only.** It validates and confirms in
   the browser and sends nothing. Wire it to a handler (Formspree, a Vercel
   function, your email tool) before launch.
-- **Every unfilled business fact is marked with a dashed green chip** (`.tbd`)
-  in the copy — shipping rates, returns window, payment methods, and so on.
-  They are deliberately conspicuous: an unfilled chip is obvious to a visitor,
-  which is safer than a plausible-looking number nobody checked. Search the
-  HTML for `class="tbd"` to find them all.
-- **Athletes, items and prices in the product rail are fictional** placeholders
-  for real inventory. Real names must not appear against listings that don't
-  exist.
-- **Named authenticators are not on the site yet.** The copy says pieces carry
-  third-party authentication without naming who, because that varies by item.
-  Two `CONFIRM` comments mark where to add real names once they recur — only
-  display a logo you have permission to use.
+- **Unsettled policies read "Coming soon"** (`.tbd` pill) rather than carrying
+  an invented number — shipping rates, returns window, payment methods and so
+  on. Search the HTML for `class="tbd"` to find every one. Replace them as
+  each policy is decided; all of them must be real before the first order.
+- **No authenticator is named anywhere**, because it isn't known yet whether
+  stock carries third-party authentication and, if so, from whom. The copy is
+  written to hold either way: we don't write our own certificates, and the
+  listing states what documentation a piece carries. If that changes, the copy
+  can get stronger — but don't strengthen it before you know.
+- **The social icons point nowhere.** They link to the signup until real
+  profiles exist; a `CONFIRM` comment marks the spot.
 - Product art is inline SVG in the `<symbol>` sprite at the top of each page.
   Replace `<use href="#i-…">` references with real photography when it's shot;
   the plinth styling is built to sit behind cut-out product shots.
@@ -89,11 +91,14 @@ explicitly rather than inheriting a host background.
 
 The site states, as fact: that stock is bought through auction houses and
 dealers rather than direct from athletes; that every item arrives here before
-it is listed and is checked against its certificate; that signed items carry
-third-party authentication and ship with it; that no buyer's premium or
-auction fee is added at checkout; and that anything sold as authentic and
-later shown not to be is refunded in full. Each of those is load-bearing —
-if any stops being true, change the copy the same day.
+it is listed and is checked against whatever documentation came with it; that
+we never write our own certificates; that no buyer's premium or auction fee is
+added at checkout; and that anything sold and later shown not to be genuine is
+refunded in full. Each of those is load-bearing — if any stops being true,
+change the copy the same day.
+
+Everything else about the shop is written in the future tense on purpose. The
+site says what Panda intends to do, because Panda hasn't done it yet.
 
 No supplier is named anywhere, by choice. Where stock comes from is nobody
 else's business; describing it inaccurately would be a different matter.
