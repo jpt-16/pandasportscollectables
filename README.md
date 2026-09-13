@@ -73,6 +73,11 @@ explicitly rather than inheriting a host background.
   an invented number — shipping rates, returns window, payment methods and so
   on. Search the HTML for `class="tbd"` to find every one. Replace them as
   each policy is decided; all of them must be real before the first order.
+- **The contact address is `info@pandasportscollectables.com`** — note the
+  spelling: the domain uses "collectAbles" while the brand name and logo use
+  "CollectIbles". Both spellings are real words, so this may be deliberate.
+  If it is not, every enquiry sent from the site will bounce silently — worth
+  confirming before launch.
 - **The family is Josh, Jake, Nolan and Liam Twohig** — it is family-run, and
   the site says that and no more. Do not reintroduce the family structure,
   the fact that it runs alongside other jobs, or anything else that frames

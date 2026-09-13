@@ -194,6 +194,7 @@ button,input{font:inherit;color:inherit}
 .secthead__title{font:400 var(--t-h2)/1.06 var(--display);letter-spacing:-.012em;color:var(--paper);text-wrap:balance}
 .secthead__sub{margin-top:1rem;font-size:1.03rem;line-height:1.62;color:var(--slate);max-width:56ch}
 .section--vault .secthead__sub{color:var(--steel)}
+.secthead__sub a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
 .secthead--row{
   display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
   gap:1.4rem 2rem;max-width:none;
