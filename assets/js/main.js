@@ -109,6 +109,79 @@
   }
 })();
 
+/* FAQ / consign accordions (<details class nothing, targeted via .qa).
+   Native <details> has no open/close transition — content just pops.
+   Animate height with the Web Animations API: hardware-accelerated,
+   interruptible (a fast double-click doesn't glitch), no library.
+   Mirrors the --ease-out token in styles.css — keep both in sync. */
+(function () {
+  'use strict';
+
+  var items = document.querySelectorAll('.qa details');
+  if (!items.length) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+
+  items.forEach(function (details) {
+    var summary = details.querySelector('summary');
+    var body = details.querySelector('.qa__body');
+    if (!summary || !body) return;
+
+    var animation = null;
+    var isClosing = false;
+    var isExpanding = false;
+
+    summary.addEventListener('click', function (e) {
+      if (reduceMotion) return; // let the native toggle happen instantly
+      e.preventDefault();
+      if (isClosing || !details.open) {
+        expand();
+      } else if (isExpanding || details.open) {
+        shrink();
+      }
+    });
+
+    function shrink() {
+      isClosing = true;
+      var startHeight = details.offsetHeight + 'px';
+      var endHeight = summary.offsetHeight + 'px';
+      if (animation) animation.cancel();
+      animation = details.animate(
+        { height: [startHeight, endHeight] },
+        { duration: 220, easing: EASE_OUT }
+      );
+      animation.onfinish = function () { onFinish(false); };
+      animation.oncancel = function () { isClosing = false; };
+    }
+
+    function expand() {
+      details.style.height = details.offsetHeight + 'px';
+      details.open = true;
+      window.requestAnimationFrame(function () {
+        isExpanding = true;
+        var startHeight = details.offsetHeight + 'px';
+        var endHeight = summary.offsetHeight + body.offsetHeight + 'px';
+        if (animation) animation.cancel();
+        animation = details.animate(
+          { height: [startHeight, endHeight] },
+          { duration: 260, easing: EASE_OUT }
+        );
+        animation.onfinish = function () { onFinish(true); };
+        animation.oncancel = function () { isExpanding = false; };
+      });
+    }
+
+    function onFinish(open) {
+      details.open = open;
+      animation = null;
+      isClosing = false;
+      isExpanding = false;
+      details.style.height = '';
+    }
+  });
+})();
+
 /* Consignment submission (consign.html).
    NOTE: there is no backend yet — see the TODO in consign.html. This validates
    and confirms client-side only; wire `send` to your form handler before launch. */
