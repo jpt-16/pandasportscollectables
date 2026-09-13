@@ -19,8 +19,8 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "index.html"
-PAGES = ["about.html", "faq.html", "consign.html"]
-NAV_FOR_PAGE = {"about.html": "About", "faq.html": "FAQ", "consign.html": "Consign"}
+PAGES = ["about.html", "faq.html"]
+NAV_FOR_PAGE = {"about.html": "About", "faq.html": "FAQ"}
 
 
 def block(text, name):

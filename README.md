@@ -7,9 +7,8 @@ dependencies: open `index.html`, or serve the folder with any static host.
 index.html            landing page — all eight sections
 about.html            origin story, vault, team, philosophy, figures
 faq.html              authentication, shipping, returns, payment
-consign.html          consignment process, declines, rates, submission form
 assets/css/styles.css design tokens + every component style
-assets/js/main.js     mobile menu, lot rail, drop signup, consignment form
+assets/js/main.js     mobile menu, lot rail, accordions, drop signup
 assets/img/           favicon
 tools/sync-chrome.py  keeps the header/footer identical across pages
 vercel.json           clean URLs + asset caching
@@ -64,30 +63,40 @@ explicitly rather than inheriting a host background.
 - **Authentication partners** (Veritas, Meridian, Hallmark, Holograph) are
   invented marks standing in for real third-party authenticators. Swap them for
   your actual partners' names and licensed logos.
-- **Both forms are client-side only.** The Thursday-drop signup and the
-  consignment submission validate and confirm in the browser and send nothing.
-  Wire them to a handler (Formspree, a Vercel function, your CRM) before
-  launch — see the TODO in `consign.html`. Until then the `mailto:` fallback in
-  the consignment fine print is the only route that reaches anyone.
-- **Everything on the About page is invented**: the founder and team, the 2009
-  jersey, the addresses, the phone number, and every figure. The numbers are at
-  least self-consistent — 5,061 inspected, 4,218 listed, 843 returned, which is
-  the one-in-six rejection rate quoted on the consignment page — so if you
-  change one, change all three.
-- **Commission bands, shipping thresholds and the returns window** are
-  plausible placeholders, not your terms. The FAQ and consignment pages state
-  them as fact; check every number against what you actually offer.
-- The **pricing claim** in the hero and trust bar ("14% below retail") is
-  unverified. It is a comparative advertising claim and needs a substantiated
-  basis before it goes near a real storefront.
-- **Athletes, lots and prices** are fictional. Real names must not appear
-  against listings that don't exist.
+- **The newsletter signup is client-side only.** It validates and confirms in
+  the browser and sends nothing. Wire it to a handler (Formspree, a Vercel
+  function, your email tool) before launch.
+- **Every unfilled business fact is marked with a dashed green chip** (`.tbd`)
+  in the copy — shipping rates, returns window, payment methods, and so on.
+  They are deliberately conspicuous: an unfilled chip is obvious to a visitor,
+  which is safer than a plausible-looking number nobody checked. Search the
+  HTML for `class="tbd"` to find them all.
+- **Athletes, items and prices in the product rail are fictional** placeholders
+  for real inventory. Real names must not appear against listings that don't
+  exist.
+- **Named authenticators are not on the site yet.** The copy says pieces carry
+  third-party authentication without naming who, because that varies by item.
+  Two `CONFIRM` comments mark where to add real names once they recur — only
+  display a logo you have permission to use.
 - Product art is inline SVG in the `<symbol>` sprite at the top of each page.
   Replace `<use href="#i-…">` references with real photography when it's shot;
   the plinth styling is built to sit behind cut-out product shots.
 - The panda mark is a simplified geometric reading of the logo, drawn to stay
   legible at 40px in the header. Swap in the real artwork as SVG when you have
   it — replace `.lockup__mark` in `index.html` and re-run `sync-chrome.py`.
+
+## Claims the copy makes
+
+The site states, as fact: that stock is bought through auction houses and
+dealers rather than direct from athletes; that every item arrives here before
+it is listed and is checked against its certificate; that signed items carry
+third-party authentication and ship with it; that no buyer's premium or
+auction fee is added at checkout; and that anything sold as authentic and
+later shown not to be is refunded in full. Each of those is load-bearing —
+if any stops being true, change the copy the same day.
+
+No supplier is named anywhere, by choice. Where stock comes from is nobody
+else's business; describing it inaccurately would be a different matter.
 
 ## Still carrying the old name
 
