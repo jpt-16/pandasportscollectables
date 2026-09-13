@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sports Shed Co.</title>
+<meta name="description" content="Hand-verified sports memorabilia — game-worn jerseys, signed balls, graded cards and match-used gear, each lot documented and certified for life.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<!-- BODY:START -->
+<a class="skip" href="#main">Skip to content</a>
+
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-jersey" viewBox="0 0 120 120">
+    <path d="M44 26c5 5 27 5 32 0l16 7c6 3 9 9 9 15l-1 11-13-2-1 47c-16 4-32 4-48 0l-1-47-13 2-1-11c0-6 3-12 9-15z" fill="currentColor" opacity=".9"/>
+    <path d="M44 26c4 7 28 7 32 0l-8 9c-5 4-11 4-16 0z" fill="var(--sym-bg,#0A1729)"/>
+    <path d="M36 52l24-13 24 13v9L60 48 36 61z" fill="var(--sym-accent,#C13230)"/>
+    <path d="M48 92c6-7 8 6 13-2s7 5 12-3" fill="none" stroke="var(--sym-foil,#E6CD8E)" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-ball" viewBox="0 0 120 120">
+    <circle cx="60" cy="60" r="38" fill="currentColor" opacity=".9"/>
+    <path d="M35 33c9 14 9 40 0 54M85 33c-9 14-9 40 0 54" fill="none" stroke="var(--sym-accent,#C13230)" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M38 40c3 2 3 4 1 7M38 52c3 1 3 3 1 6M38 64c3 1 3 3 1 6M82 40c-3 2-3 4-1 7M82 52c-3 1-3 3-1 6M82 64c-3 1-3 3-1 6" fill="none" stroke="var(--sym-accent,#C13230)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M45 74c7-9 10 5 15-3s8 6 15-4" fill="none" stroke="var(--sym-foil,#E6CD8E)" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-card" viewBox="0 0 120 120">
+    <rect x="22" y="24" width="52" height="72" rx="3" fill="currentColor" opacity=".55" transform="rotate(-8 48 60)"/>
+    <rect x="46" y="20" width="54" height="76" rx="3" fill="currentColor" opacity=".95"/>
+    <rect x="53" y="27" width="40" height="42" rx="2" fill="var(--sym-accent,#C13230)" opacity=".85"/>
+    <circle cx="73" cy="45" r="11" fill="var(--sym-bg,#0A1729)" opacity=".55"/>
+    <path d="M53 77h40M53 85h26" stroke="var(--sym-foil,#E6CD8E)" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-bat" viewBox="0 0 120 120">
+    <path d="M28 92c-4-4-4-8 0-12l38-38c6-6 18-16 26-20 4-2 8 2 6 6-4 8-14 20-20 26L40 92c-4 4-8 4-12 0z" fill="currentColor" opacity=".9"/>
+    <path d="M30 90l12-12" stroke="var(--sym-accent,#C13230)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M56 74c8-8 11 3 16-4s9 4 15-4" fill="none" stroke="var(--sym-foil,#E6CD8E)" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-photo" viewBox="0 0 120 120">
+    <rect x="20" y="26" width="80" height="68" rx="2" fill="none" stroke="currentColor" stroke-width="5"/>
+    <rect x="31" y="37" width="58" height="46" fill="currentColor" opacity=".7"/>
+    <path d="M31 72l14-13 10 9 12-14 22 20v9H31z" fill="var(--sym-accent,#C13230)" opacity=".8"/>
+    <path d="M40 66c6-7 8 4 13-3s7 4 12-3" fill="none" stroke="var(--sym-foil,#E6CD8E)" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-boot" viewBox="0 0 120 120">
+    <path d="M22 76c0-12 4-22 8-30 3-6 10-8 15-4l10 9c10 8 22 12 34 13 7 1 11 5 11 11v9c0 4-3 7-7 7H29c-4 0-7-3-7-7z" fill="currentColor" opacity=".9"/>
+    <path d="M22 82h76" stroke="var(--sym-bg,#0A1729)" stroke-width="4" opacity=".5"/>
+    <path d="M40 56l12 10M48 48l12 11" stroke="var(--sym-accent,#C13230)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M62 74c7-8 10 4 15-3s8 5 14-3" fill="none" stroke="var(--sym-foil,#E6CD8E)" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-seal" viewBox="0 0 48 48">
+    <path d="M24 3l4.6 3.4 5.7-.5 2.2 5.3 4.9 3-1 5.6 3.2 4.7-3.2 4.7 1 5.6-4.9 3-2.2 5.3-5.7-.5L24 45l-4.6-3.4-5.7.5-2.2-5.3-4.9-3 1-5.6L4.4 23.5l3.2-4.7-1-5.6 4.9-3 2.2-5.3 5.7.5z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.7 6.1 20.8l1.2-6.6L2.5 9.6l6.6-.9z" fill="currentColor"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<p class="ticker">
+  <span>Complimentary insured shipping over $500</span>
+  <span aria-hidden="true" class="ticker__dot"></span>
+  <span>New lots released Thursdays, 9:00&nbsp;AM ET</span>
+  <span aria-hidden="true" class="ticker__dot"></span>
+  <span>Lifetime certificate registry</span>
+</p>
+
+<header class="masthead" id="top">
+  <div class="wrap masthead__inner">
+    <a class="lockup" href="#top" aria-label="The Sports Shed Co. — home">
+      <svg class="lockup__mark" viewBox="0 0 120 148" aria-hidden="true" focusable="false">
+        <path d="M8 140V60a52 52 0 0 1 104 0v80z" fill="#16294E"/>
+        <path d="M20 132V60a40 40 0 0 1 80 0v72z" fill="none" stroke="#F3EEE3" stroke-width="5"/>
+        <path d="M28 84l32-24 32 24v16L60 76 28 100z" fill="#C13230"/>
+        <text x="60" y="126" text-anchor="middle" class="lockup__ss">SS</text>
+      </svg>
+      <span class="lockup__type">
+        <span class="lockup__line1"><em>The</em> Sports</span>
+        <span class="lockup__line2">Shed <i>Co.</i></span>
+        <span class="lockup__rule"><span></span>Authentic Memorabilia</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="#categories">Shop</a>
+      <a href="#lots">The Vault</a>
+      <a href="#authentication">Authentication</a>
+      <a href="#reviews">Collectors</a>
+      <a href="#consign">Consign</a>
+    </nav>
+
+    <div class="masthead__tools">
+      <a class="tool" href="#lots" aria-label="Search the catalogue">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </a>
+      <a class="tool" href="#lots" aria-label="Your case, 2 lots">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1.2 12.5H6.2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 9.5V7a3 3 0 0 1 6 0v2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="tool__count">2</span>
+      </a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        <span class="sr">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ───────────────────────────── HERO ───────────────────────────── -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow eyebrow--foil">Established 2011 &middot; Chicago</p>
+        <h1 class="hero__title">Own a Piece<br><em>of the Game</em></h1>
+        <p class="lede">Not reproductions. Not team-shop merchandise. Single, documented lots &mdash; game-worn, match-used, hand-signed &mdash; each one inspected in our vault before it ever reaches the floor.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#lots">Shop Authenticated Memorabilia</a>
+          <a class="btn btn--ghost" href="#authentication">How we authenticate <svg class="btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <dl class="hero__stats">
+          <div><dt>Lots placed</dt><dd>4,218</dd></div>
+          <div><dt>Hand-verified</dt><dd>100%</dd></div>
+          <div><dt>Avg. authentication</dt><dd>9 days</dd></div>
+        </dl>
+      </div>
+
+      <figure class="case">
+        <svg class="case__svg" viewBox="0 0 520 664" role="img" aria-labelledby="case-title">
+          <title id="case-title">A signed game-worn jersey displayed in an arch-topped vitrine</title>
+          <defs>
+            <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2B4677" stop-opacity=".55"/>
+              <stop offset=".5" stop-color="#12213C" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#0A1729" stop-opacity="1"/>
+            </linearGradient>
+            <radialGradient id="gSpot" cx=".5" cy=".06" r=".78">
+              <stop offset="0" stop-color="#FFF6E2" stop-opacity=".30"/>
+              <stop offset=".45" stop-color="#CDB27A" stop-opacity=".10"/>
+              <stop offset="1" stop-color="#0A1729" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="gFoil" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#8A6C2C"/><stop offset=".38" stop-color="#E6CD8E"/>
+              <stop offset=".62" stop-color="#C0983F"/><stop offset="1" stop-color="#7E6127"/>
+            </linearGradient>
+            <clipPath id="cArch"><path d="M78 604V262a182 182 0 0 1 364 0v342z"/></clipPath>
+          </defs>
+
+          <path d="M60 620V260a200 200 0 0 1 400 0v360z" fill="#0E1E37" stroke="url(#gFoil)" stroke-width="2.5"/>
+          <path d="M78 604V262a182 182 0 0 1 364 0v342z" fill="url(#gGlass)"/>
+
+          <g clip-path="url(#cArch)">
+            <rect x="78" y="80" width="364" height="524" fill="url(#gSpot)"/>
+
+            <!-- jersey -->
+            <g class="case__jersey">
+              <path d="M214 206c14-11 78-11 92 0l46 19c21 9 31 25 33 47l3 30-34 6-6 8 4 176c-42 11-146 11-188 0l4-176-6-8-34-6 3-30c2-22 12-38 33-47z" fill="#16294E"/>
+              <path d="M214 206c16 26 76 26 92 0l-14 9c-18 11-46 11-64 0z" fill="#0C1A31"/>
+              <path d="M192 288l68-40 68 40v26l-68-40-68 40z" fill="#C13230"/>
+              <text x="260" y="450" text-anchor="middle" class="case__num">24</text>
+              <text x="260" y="356" text-anchor="middle" class="case__name">VANCE</text>
+              <path d="M190 486c20-30 30 22 48-10 14-25 22 26 40-4 14-23 22 24 42-8" fill="none" stroke="#E6CD8E" stroke-width="3.4" stroke-linecap="round" opacity=".95"/>
+              <path d="M196 502c38 8 84 8 122-2" fill="none" stroke="#E6CD8E" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+            </g>
+
+            <!-- glass highlight -->
+            <path d="M96 604L268 78h44L140 604z" fill="#FFFFFF" opacity=".035"/>
+            <path d="M330 604L430 300h22L352 604z" fill="#FFFFFF" opacity=".025"/>
+          </g>
+
+          <path d="M78 604h364" stroke="url(#gFoil)" stroke-width="1.5" opacity=".7"/>
+          <rect x="44" y="620" width="432" height="30" rx="3" fill="#16294E" stroke="url(#gFoil)" stroke-width="1.5"/>
+        </svg>
+
+        <figcaption class="lotcard">
+          <p class="lotcard__no">Lot 0417</p>
+          <p class="lotcard__athlete">Marcus Vance</p>
+          <p class="lotcard__desc">Game-worn &amp; signed jersey, 2019 Conference Final &mdash; photo-matched to the second half.</p>
+          <p class="lotcard__foot"><span class="price">$12,400</span><span class="chip"><svg class="chip__seal" aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Veritas COA</span></p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── TRUST BAR ───────────────────────── -->
+  <section class="trust" aria-label="Authentication partners">
+    <div class="wrap trust__inner">
+      <p class="trust__claim">Every item is <strong>hand-verified</strong> in our Chicago vault &mdash; no exceptions, no consignor self-certification.</p>
+      <ul class="trust__marks">
+        <li><svg class="trust__glyph" aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><span><b>Veritas</b>Authentication</span></li>
+        <li><svg class="trust__glyph" aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><span><b>Meridian</b>Grading Service</span></li>
+        <li><svg class="trust__glyph" aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><span><b>Hallmark</b>COA Registry</span></li>
+        <li><svg class="trust__glyph" aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><span><b>Holograph</b>Serial Ledger</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── CATEGORIES ───────────────────────── -->
+  <section class="section section--gallery" id="categories">
+    <div class="wrap">
+      <header class="secthead">
+        <p class="eyebrow">The collection</p>
+        <h2 class="secthead__title">Five ways into the vault</h2>
+        <p class="secthead__sub">Lot counts update as the catalogue moves. Everything listed is in hand &mdash; we don't broker pieces we haven't held.</p>
+      </header>
+
+      <ul class="cats">
+        <li class="cat cat--wide">
+          <a href="#lots">
+            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-jersey"></use></svg></span>
+            <span class="cat__meta"><span class="cat__count">214 lots</span><span class="cat__name">Jerseys</span><span class="cat__note">Game-worn, photo-matched, signed</span></span>
+            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
+          </a>
+        </li>
+        <li class="cat cat--wide">
+          <a href="#lots">
+            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg></span>
+            <span class="cat__meta"><span class="cat__count">168 lots</span><span class="cat__name">Autographed Balls</span><span class="cat__note">Match balls &amp; inscribed singles</span></span>
+            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
+          </a>
+        </li>
+        <li class="cat">
+          <a href="#lots">
+            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-card"></use></svg></span>
+            <span class="cat__meta"><span class="cat__count">1,042 lots</span><span class="cat__name">Trading Cards</span><span class="cat__note">Graded 8.0 and above</span></span>
+            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
+          </a>
+        </li>
+        <li class="cat">
+          <a href="#lots">
+            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-bat"></use></svg></span>
+            <span class="cat__meta"><span class="cat__count">97 lots</span><span class="cat__name">Game-Used Gear</span><span class="cat__note">Bats, gloves, boots, helmets</span></span>
+            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
+          </a>
+        </li>
+        <li class="cat">
+          <a href="#lots">
+            <span class="cat__art"><svg aria-hidden="true" focusable="false"><use href="#i-photo"></use></svg></span>
+            <span class="cat__meta"><span class="cat__count">311 lots</span><span class="cat__name">Photographs</span><span class="cat__note">Signed, matted &amp; framed</span></span>
+            <svg class="cat__go" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── LOTS / CAROUSEL ───────────────────────── -->
+  <section class="section section--vault" id="lots">
+    <div class="wrap">
+      <header class="secthead secthead--row">
+        <div>
+          <p class="eyebrow eyebrow--foil">Currently on the floor</p>
+          <h2 class="secthead__title">This week's lots</h2>
+        </div>
+        <div class="railtools">
+          <div class="tabs" role="tablist" aria-label="Filter lots">
+            <button class="tab is-on" type="button" role="tab" aria-selected="true" data-filter="best">Best sellers</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-filter="new">New arrivals</button>
+          </div>
+          <div class="railnav">
+            <button class="railbtn" type="button" data-scroll="-1" aria-label="Previous lots"><svg aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></button>
+            <button class="railbtn" type="button" data-scroll="1" aria-label="Next lots"><svg aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></button>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div class="wrap railhold">
+    <ul class="rail" id="rail" tabindex="0" aria-label="Lot carousel">
+      <li class="lot" data-list="best new">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-jersey"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Veritas</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0417 &middot; Jerseys</span>
+            <span class="lot__athlete">Marcus Vance</span>
+            <span class="lot__desc">Game-worn &amp; signed jersey, 2019 Conference Final</span>
+            <span class="lot__foot"><span class="price">$12,400</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+      <li class="lot" data-list="best">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-card"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Meridian 9.5</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0388 &middot; Trading Cards</span>
+            <span class="lot__athlete">Terrence Hale</span>
+            <span class="lot__desc">Rookie card, sealed slab, population 14</span>
+            <span class="lot__foot"><span class="price">$18,600</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+      <li class="lot" data-list="best new">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-bat"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Hallmark COA</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0455 &middot; Game-Used Gear</span>
+            <span class="lot__athlete">Andre Solis</span>
+            <span class="lot__desc">Match-used bat, 2021 Series, cracked &amp; taped</span>
+            <span class="lot__foot"><span class="price">$7,300</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+      <li class="lot" data-list="best">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Veritas</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0402 &middot; Autographed Balls</span>
+            <span class="lot__athlete">Rosa Delgado</span>
+            <span class="lot__desc">Championship match ball, inscribed &ldquo;Final, 94'&rdquo;</span>
+            <span class="lot__foot"><span class="price">$2,190</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+      <li class="lot" data-list="new">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-boot"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Holograph</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0471 &middot; Game-Used Gear</span>
+            <span class="lot__athlete">Dele Okafor</span>
+            <span class="lot__desc">Match-worn boots, debut season, mud intact</span>
+            <span class="lot__foot"><span class="price">$4,850</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+      <li class="lot" data-list="new">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-photo"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Veritas</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0468 &middot; Photographs</span>
+            <span class="lot__athlete">June Whitaker</span>
+            <span class="lot__desc">Signed silver gelatin print, 16&times;20, framed</span>
+            <span class="lot__foot"><span class="price">$1,275</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+      <li class="lot" data-list="new best">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-jersey"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Hallmark COA</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0474 &middot; Jerseys</span>
+            <span class="lot__athlete">Nia Brantley</span>
+            <span class="lot__desc">Title-bout robe, signed on the reverse panel</span>
+            <span class="lot__foot"><span class="price">$3,940</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+      <li class="lot" data-list="new">
+        <a href="#lots">
+          <span class="lot__plinth">
+            <svg class="lot__art" aria-hidden="true" focusable="false"><use href="#i-card"></use></svg>
+            <span class="lot__badge"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg>Meridian 9.0</span>
+          </span>
+          <span class="lot__body">
+            <span class="lot__no">Lot 0476 &middot; Trading Cards</span>
+            <span class="lot__athlete">Cal Rennick</span>
+            <span class="lot__desc">Signed rookie parallel, 14 of 25</span>
+            <span class="lot__foot"><span class="price">$2,650</span><span class="lot__go">View lot</span></span>
+          </span>
+        </a>
+      </li>
+    </ul>
+    </div>
+
+    <div class="wrap railfoot">
+      <p id="railcount" class="railfoot__count" aria-live="polite">Showing 5 best-selling lots</p>
+      <a class="btn btn--ghost" href="#lots">Browse the full catalogue <svg class="btn__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── AUTHENTICATION ───────────────────────── -->
+  <section class="section section--gallery" id="authentication">
+    <div class="wrap">
+      <header class="secthead">
+        <p class="eyebrow">How authentication works</p>
+        <h2 class="secthead__title">Three gates, in order</h2>
+        <p class="secthead__sub">A lot that fails any one of them never reaches the floor. Roughly one in six pieces we're offered is returned to the consignor.</p>
+      </header>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step__seal"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><b>I</b></span>
+          <h3 class="step__title">Sourced</h3>
+          <p>Pieces come from the athlete, their estate, or consignors we've worked with for years. Provenance is written down &mdash; who held it, when, and how it left the field &mdash; before we agree to anything.</p>
+          <p class="step__detail">Chain of custody on file</p>
+        </li>
+        <li class="step">
+          <span class="step__seal"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><b>II</b></span>
+          <h3 class="step__title">Verified</h3>
+          <p>An 18-point inspection: photo-matching against broadcast footage, ink and media analysis on every signature, plus tag, weave and manufacturer dating on garments and gear.</p>
+          <p class="step__detail">18-point inspection &middot; 9 days average</p>
+        </li>
+        <li class="step">
+          <span class="step__seal"><svg aria-hidden="true" focusable="false"><use href="#i-seal"></use></svg><b>III</b></span>
+          <h3 class="step__title">Certified</h3>
+          <p>The lot is serialized, tamper-sealed, and entered in the registry with its inspection photographs. Your certificate stays searchable for life &mdash; and transfers when you sell it on.</p>
+          <p class="step__detail">Lifetime registry entry</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── REVIEWS ───────────────────────── -->
+  <section class="section section--vault section--reviews" id="reviews">
+    <div class="wrap">
+      <header class="secthead secthead--row">
+        <div>
+          <p class="eyebrow eyebrow--foil">Collectors</p>
+          <h2 class="secthead__title">What the shelf-builders say</h2>
+        </div>
+        <p class="rating">
+          <span class="rating__stars" role="img" aria-label="4.9 out of 5 stars">
+            <svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg>
+          </span>
+          <span class="rating__text"><b>4.9</b> from 1,183 verified collectors</span>
+        </p>
+      </header>
+
+      <ul class="reviews">
+        <li class="review">
+          <span class="review__stars" role="img" aria-label="5 out of 5">
+            <svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg>
+          </span>
+          <blockquote>The photo-match packet was thirty pages. I've bought six-figure pieces from houses that sent a paragraph.</blockquote>
+          <p class="review__who"><b>Daniel Ferreira</b><span>Collecting 11 years &middot; 14 lots</span></p>
+        </li>
+        <li class="review">
+          <span class="review__stars" role="img" aria-label="5 out of 5">
+            <svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg>
+          </span>
+          <blockquote>They turned down my consignment and told me exactly why. That's the reason I now buy from them instead.</blockquote>
+          <p class="review__who"><b>Priya Raghunathan</b><span>Collecting 7 years &middot; 9 lots</span></p>
+        </li>
+        <li class="review">
+          <span class="review__stars" role="img" aria-label="5 out of 5">
+            <svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg><svg aria-hidden="true" focusable="false"><use href="#i-star"></use></svg>
+          </span>
+          <blockquote>Arrived double-crated with the humidity card still reading in range. The framing alone was worth what I paid.</blockquote>
+          <p class="review__who"><b>Marcus Whitlow</b><span>Collecting 19 years &middot; 31 lots</span></p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── NEWSLETTER ───────────────────────── -->
+  <section class="section section--gallery" id="consign">
+    <div class="wrap">
+      <div class="drop">
+        <div class="drop__copy">
+          <p class="eyebrow eyebrow--foil">The Thursday drop</p>
+          <h2 class="drop__title">Get notified of new drops</h2>
+          <p>We release twelve to twenty lots every Thursday at 9:00&nbsp;AM ET. Subscribers get the catalogue Wednesday night &mdash; twelve hours early, with first refusal on anything under $5,000.</p>
+        </div>
+        <form class="drop__form" id="dropform" novalidate>
+          <label class="sr" for="dropemail">Email address</label>
+          <div class="field">
+            <input id="dropemail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+            <button class="btn btn--primary" type="submit">Notify me</button>
+          </div>
+          <p class="drop__msg" id="dropmsg" role="status"></p>
+          <p class="drop__fine">Two emails a week at most. Unsubscribe in one click. We never sell collector data.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ───────────────────────── FOOTER ───────────────────────── -->
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__brand">
+      <a class="lockup lockup--foot" href="#top" aria-label="The Sports Shed Co. — home">
+        <svg class="lockup__mark" viewBox="0 0 120 148" aria-hidden="true" focusable="false">
+          <path d="M8 140V60a52 52 0 0 1 104 0v80z" fill="#16294E"/>
+          <path d="M20 132V60a40 40 0 0 1 80 0v72z" fill="none" stroke="#F3EEE3" stroke-width="5"/>
+          <path d="M28 84l32-24 32 24v16L60 76 28 100z" fill="#C13230"/>
+          <text x="60" y="126" text-anchor="middle" class="lockup__ss">SS</text>
+        </svg>
+        <span class="lockup__type">
+          <span class="lockup__line1"><em>The</em> Sports</span>
+          <span class="lockup__line2">Shed <i>Co.</i></span>
+          <span class="lockup__rule"><span></span>Authentic Memorabilia</span>
+        </span>
+      </a>
+      <p class="foot__blurb">1420 W. Fulton Market, Chicago, IL &middot; Vault viewings by appointment, Tuesday through Friday.</p>
+      <ul class="social">
+        <li><a href="#top" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a></li>
+        <li><a href="#top" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 9.2l5 2.8-5 2.8z" fill="currentColor"/></svg></a></li>
+        <li><a href="#top" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4l16 16M20 4L4 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a></li>
+        <li><a href="#top" aria-label="Email the vault"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 8l7.5 5.5L19.5 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      </ul>
+    </div>
+
+    <nav class="foot__cols" aria-label="Footer">
+      <div>
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="#categories">Jerseys</a></li>
+          <li><a href="#categories">Autographed balls</a></li>
+          <li><a href="#categories">Trading cards</a></li>
+          <li><a href="#categories">Game-used gear</a></li>
+          <li><a href="#categories">Photographs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Collector services</h3>
+        <ul>
+          <li><a href="#authentication">Authentication</a></li>
+          <li><a href="#consign">Consign a piece</a></li>
+          <li><a href="#top">Appraisals &amp; insurance</a></li>
+          <li><a href="#top">Custom framing</a></li>
+          <li><a href="#top">Certificate registry</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Shipping &amp; returns</h3>
+        <ul>
+          <li><a href="#top">Free insured shipping over $500</a></li>
+          <li><a href="#top">14-day returns, all lots</a></li>
+          <li><a href="#top">Worldwide crating</a></li>
+          <li><a href="#top">Track an order</a></li>
+          <li><a href="#top">Damage claims</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#top">Our story</a></li>
+          <li><a href="#authentication">Authenticity guarantee</a></li>
+          <li><a href="#reviews">Collector reviews</a></li>
+          <li><a href="#top">Press</a></li>
+          <li><a href="#top">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="wrap foot__legal">
+    <p>&copy; 2026 The Sports Shed Co. All lots sold with a lifetime certificate.</p>
+    <ul>
+      <li><a href="#top">Terms</a></li>
+      <li><a href="#top">Privacy</a></li>
+      <li><a href="#top">Accessibility</a></li>
+    </ul>
+  </div>
+</footer>
+<!-- BODY:END -->
+<script src="assets/js/main.js"></script>
+</body>
+</html>
