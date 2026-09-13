@@ -96,6 +96,19 @@ explicitly rather than inheriting a host background.
   legible at 40px in the header. Swap in the real artwork as SVG when you have
   it — replace `.lockup__mark` in `index.html` and re-run `sync-chrome.py`.
 
+## The panda mark
+
+`.lockup__mark` in `index.html` is a hand-drawn SVG of the logo — the angled
+eye patches, ears, muzzle and shouldered crest. Two deliberate departures from
+the artwork: the shoulders and ears are graphite (`#31353C`) rather than pure
+black, because true black disappears against the near-black header; and the
+detail is simplified to survive 46px. If you get the logo as vector artwork,
+drop it in and re-run `tools/sync-chrome.py` — keep the graphite adaptation for
+anything sitting on the dark ground.
+
+The wordmark is Exo 2 italic, chosen for the sheared angular terminals in the
+real logo. Headlines stay on Archivo.
+
 ## A note on caching
 
 `vercel.json` sets `/assets/*` to `max-age=0, must-revalidate`. Do **not**

@@ -1,9 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Panda Sports Collectibles">
-  <rect width="64" height="64" rx="10" fill="#1FAE4D"/>
-  <g fill="#0A0B0C"><circle cx="17" cy="22" r="9"/><circle cx="47" cy="22" r="9"/></g>
-  <ellipse cx="32" cy="36" rx="23" ry="21" fill="#F4F4F1"/>
-  <ellipse cx="22.5" cy="33" rx="6.6" ry="8.4" fill="#0A0B0C" transform="rotate(-20 22.5 33)"/>
-  <ellipse cx="41.5" cy="33" rx="6.6" ry="8.4" fill="#0A0B0C" transform="rotate(20 41.5 33)"/>
-  <circle cx="24.3" cy="31.4" r="1.9" fill="#F4F4F1"/><circle cx="39.7" cy="31.4" r="1.9" fill="#F4F4F1"/>
-  <path d="M27.5 45.5c0-2.3 2-3.9 4.5-3.9s4.5 1.6 4.5 3.9-2 3.3-4.5 3.3-4.5-1-4.5-3.3z" fill="#0A0B0C"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Panda Sports Collectibles">
+  <rect width="240" height="240" rx="38" fill="#1FAE4D"/>
+  <g transform="translate(0 22)">
+    <circle cx="58" cy="52" r="30" fill="#0A0B0C"/>
+    <circle cx="182" cy="52" r="30" fill="#0A0B0C"/>
+    <path d="M120 40c42 0 66 26 66 62 0 38-30 64-66 64s-66-26-66-64c0-36 24-62 66-62z" fill="#F4F4F1"/>
+    <path d="M113 70c-2 15-4 32-9 43-11 21-34 23-45 8-8-13-2-32 11-43 13-11 32-15 43-8z" fill="#0A0B0C"/>
+    <path d="M127 70c2 15 4 32 9 43 11 21 34 23 45 8 8-13 2-32-11-43-13-11-32-15-43-8z" fill="#0A0B0C"/>
+    <ellipse cx="93" cy="103" rx="7.5" ry="6" fill="#F4F4F1" transform="rotate(24 93 103)"/>
+    <ellipse cx="147" cy="103" rx="7.5" ry="6" fill="#F4F4F1" transform="rotate(-24 147 103)"/>
+    <path d="M102 129c0-8 8-12 18-12s18 4 18 12c0 10-8 17-18 17s-18-7-18-17z" fill="#0A0B0C"/>
+    <path d="M120 146v11" stroke="#0A0B0C" stroke-width="6" stroke-linecap="round"/>
+    <path d="M120 157c-9 9-23 8-27 1M120 157c9 9 23 8 27 1" fill="none" stroke="#0A0B0C" stroke-width="6" stroke-linecap="round"/>
+  </g>
 </svg>
