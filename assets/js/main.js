@@ -50,7 +50,7 @@
         tab.setAttribute('aria-selected', String(on));
       });
       if (count) {
-        count.textContent = 'Showing ' + shown + ' ' + labels[key] + ' lot' + (shown === 1 ? '' : 's');
+        count.textContent = 'Showing ' + shown + ' ' + labels[key] + ' item' + (shown === 1 ? '' : 's');
       }
       rail.scrollTo({ left: 0, behavior: 'smooth' });
     };
@@ -94,7 +94,7 @@
 
       input.removeAttribute('aria-invalid');
       msg.dataset.state = 'ok';
-      msg.textContent = "You're on the list. Wednesday's catalogue lands at 9:00 PM ET.";
+      msg.textContent = "You're on the list. We'll email you when new pieces land.";
       form.querySelector('button[type="submit"]').disabled = true;
       input.disabled = true;
     });

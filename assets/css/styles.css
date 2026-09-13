@@ -808,3 +808,33 @@ button,input{font:inherit;color:inherit}
 .creed h3,.lookup h3,.qa summary{font-weight:700;letter-spacing:-.012em}
 .member__plate{font-weight:800;font-stretch:78%;font-style:italic}
 .review blockquote{font-weight:500;font-style:italic;letter-spacing:-.008em}
+
+/* ---------- hero value points (replaced the invented stat row) ---------- */
+.hero__points{
+  display:flex;flex-wrap:wrap;gap:.8rem 2rem;margin-top:2.6rem;
+  padding-top:1.7rem;border-top:1px solid var(--line-dark);
+}
+.hero__points li{display:flex;align-items:center;gap:.55rem;font-size:.92rem;color:var(--steel)}
+.hero__points svg{width:17px;height:17px;flex:none;color:var(--green)}
+
+/* ---------- Why Panda runs three across ---------- */
+.creed--three{grid-template-columns:repeat(3,1fr)}
+@media (max-width:960px){.creed--three{grid-template-columns:1fr}}
+
+/* the trust bar is now a statement and a link, not a row of marks */
+.trust__inner .btn{flex:none}
+
+/* ---------- about: what we will and won't list ---------- */
+.willwont{display:grid;gap:.72rem;margin-top:1rem}
+.willwont li{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;line-height:1.5;color:var(--fg-dim)}
+.willwont svg{width:15px;height:15px;flex:none;margin-top:.2rem}
+.willwont .yes svg{color:var(--green)}
+.willwont .no svg{color:var(--warn)}
+
+/* ---------- placeholders the owner still has to fill in ---------- */
+.tbd{
+  display:inline-block;border:1px dashed var(--green);border-radius:2px;
+  padding:.05em .45em;color:var(--green-deep);background:rgba(31,174,77,.08);
+  font:600 .82em var(--cond);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+}
+.section--vault .tbd,.pagehead .tbd{color:var(--green-lite)}
