@@ -73,6 +73,9 @@ explicitly rather than inheriting a host background.
   an invented number — shipping rates, returns window, payment methods and so
   on. Search the HTML for `class="tbd"` to find every one. Replace them as
   each policy is decided; all of them must be real before the first order.
+- **The family structure is: Josh (dad) plus three sons, Jake, Nolan and
+  Liam.** It is not four brothers — that was wrong on the site until now, so
+  check any copy written before this for the same mistake.
 - **No authenticator is named anywhere**, because it isn't known yet whether
   stock carries third-party authentication and, if so, from whom. The copy is
   written to hold either way: we don't write our own certificates, and the
