@@ -815,7 +815,7 @@ button,input{font:inherit;color:inherit}
   padding-top:1.7rem;border-top:1px solid var(--line-dark);
 }
 .hero__points li{display:flex;align-items:center;gap:.55rem;font-size:.92rem;color:var(--steel)}
-.hero__points svg{width:17px;height:17px;flex:none;color:var(--green)}
+.hero__points svg{width:17px;height:17px;flex:none;color:var(--accentfg,var(--green-lite))}
 
 /* ---------- Why Panda runs three across ---------- */
 .creed--three{grid-template-columns:repeat(3,1fr)}
@@ -828,13 +828,12 @@ button,input{font:inherit;color:inherit}
 .willwont{display:grid;gap:.72rem;margin-top:1rem}
 .willwont li{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;line-height:1.5;color:var(--fg-dim)}
 .willwont svg{width:15px;height:15px;flex:none;margin-top:.2rem}
-.willwont .yes svg{color:var(--green)}
+.willwont .yes svg{color:var(--accentfg)}
 .willwont .no svg{color:var(--warn)}
 
 /* ---------- placeholders the owner still has to fill in ---------- */
 .tbd{
-  display:inline-block;border:1px dashed var(--green);border-radius:2px;
-  padding:.05em .45em;color:var(--green-deep);background:rgba(31,174,77,.08);
+  display:inline-block;border:1px dashed var(--accentfg,var(--green-lite));border-radius:2px;
+  padding:.05em .45em;color:var(--accentfg,var(--green-lite));background:rgba(31,174,77,.08);
   font:600 .82em var(--cond);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
 }
-.section--vault .tbd,.pagehead .tbd{color:var(--green-lite)}
