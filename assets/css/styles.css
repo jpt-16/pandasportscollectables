@@ -299,7 +299,8 @@ button,input{font:inherit;color:inherit}
    works on both the cream and the vault ground without being
    written twice.
    ============================================================ */
-.section--gallery{
+.section--gallery,
+.premarq{
   --fg:var(--on-light);--fg-dim:var(--slate);--rule:var(--line-light);
   --panel:#FFFFFF;--panel-2:#E9E9E4;--accentfg:#0E6B30;--link:var(--green-deep);
 }
