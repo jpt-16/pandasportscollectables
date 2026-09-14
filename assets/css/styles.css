@@ -163,7 +163,10 @@ button,input{font:inherit;color:inherit}
 
 /* ---------- logo lockup ---------- */
 /* Proportions lifted from panda-wordmark.svg: PANDA 150 / SPORTS 54 /
-   COLLECTIBLES 54, letter-spacing -3 / +10 / +8 at that scale. */
+   third-line 54, letter-spacing -3 / +10 / +8 at that scale. The source
+   svg still says "COLLECTIBLES" (kept only for its type-scale
+   measurements, never shipped); the live third line now reads
+   "MEMORABILIA" — one letter shorter, same spacing carries over fine. */
 .lockup{display:flex;align-items:center;gap:.8rem}
 .lockup__mark{width:58px;height:39px;flex:none}
 .lockup__type{display:grid;gap:3px;line-height:1}
@@ -569,6 +572,13 @@ textarea)[aria-invalid="true"]{border-color:var(--warn);box-shadow:0 0 0 3px rgb
 .signup__msg[data-state="error"]{color:var(--warn)}
 .signup__msg[data-state="ok"]{color:var(--accentfg)}
 .signup__fine{flex:1 0 100%;margin:0;font-size:.8rem;line-height:1.55;color:var(--fg-dim)}
+
+/* Honeypot: invisible to sighted users, screen readers and keyboard tab
+   order alike — real visitors never know it exists. A bot that auto-fills
+   every field on a form tends to fill this one too; the backend checks it
+   server-side and silently discards anything that trips it. */
+.hp{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden}
+
 .section--vault .signup input{border-color:rgba(244,244,241,.28);background:rgba(244,244,241,.05)}
 .signup--stack{margin-top:0}
 

@@ -1,22 +1,32 @@
-# Panda Sports Collectibles
+# Panda Sports Memorabilia
 
-A static **pre-launch** site for Panda Sports Collectibles. The shop isn't
-open, so there is no catalogue, no cart and no checkout — the homepage exists
-to explain the proposition and collect email addresses. No build step, no
-dependencies: open `index.html`, or serve the folder with any static host.
+A **pre-launch** site for Panda Sports Memorabilia. The shop isn't open, so
+there is no catalogue, no cart and no checkout — the homepage exists to
+explain the proposition and collect email addresses, which it now does for
+real (see "Email signups" below). The pages themselves are still plain
+static HTML with no build step — open `index.html` directly, or serve the
+folder with any static host, and everything renders. The one thing that
+needs Vercel specifically is the signup form's *backend*: `npm install`
+(Vercel runs this automatically on deploy) pulls in the `resend` package for
+`api/subscribe.js`. Browsing the site elsewhere works fine; submitting a
+signup form only reaches Resend when it's actually running on Vercel (or
+via `vercel dev` locally).
 
 ```
-index.html            pre-launch homepage — hero, why, how, what's coming, signup
-about.html            origin story, vault, team, philosophy, figures
-faq.html              authentication, shipping, returns, payment
-privacy.html          what we collect, cookies, your rights
-refunds.html          the authenticity guarantee, returns, damaged parcels
-terms.html            the rules for using the site and buying from us
-assets/css/styles.css design tokens + every component style
-assets/js/main.js     mobile menu, email signups, FAQ accordions
-assets/img/           favicon
-tools/sync-chrome.py  keeps the header/footer identical across pages
-vercel.json           clean URLs + cache headers
+index.html             pre-launch homepage — hero, why, how, what's coming, signup
+about.html             origin story, vault, team, philosophy, figures
+faq.html               authentication, shipping, returns, payment
+privacy.html           what we collect, cookies, your rights
+refunds.html           the authenticity guarantee, returns, damaged parcels
+terms.html             the rules for using the site and buying from us
+assets/css/styles.css  design tokens + every component style
+assets/js/main.js      mobile menu, email signups, FAQ accordions
+assets/img/            favicon
+api/subscribe.js       serverless function: signup -> Resend audience
+package.json           declares the one dependency (resend) + Node version
+.env.example           the environment variables api/subscribe.js needs
+tools/sync-chrome.py   keeps the header/footer identical across pages
+vercel.json            clean URLs + cache headers
 ```
 
 There is no build step, so the header and footer are duplicated into each
@@ -27,6 +37,47 @@ page between `CHROME:TOP` / `CHROME:FOOT` comment markers. Edit them in
 python3 tools/sync-chrome.py          # push the change to the other pages
 python3 tools/sync-chrome.py --check  # exit 1 if any page is stale (CI)
 ```
+
+## Email signups
+
+Both "Notify me" forms POST to `api/subscribe.js`, a Vercel serverless
+function that adds the address to a Resend audience (a real, exportable
+contact list — not just a notification) and, best-effort, emails
+`support@pandasportsmemorabilia.com` so someone sees each signup happen. A
+hidden honeypot field on both forms catches simple bots server-side.
+
+**To make it actually work, someone needs to:**
+
+1. Create a free account at [resend.com](https://resend.com).
+2. Add and verify `pandasportsmemorabilia.com` as a sending domain (Resend
+   gives you a few DNS records — SPF/DKIM — to add wherever the domain's DNS
+   is managed; this is what lets Resend send *from* that domain instead of
+   landing in spam). Takes a few minutes to propagate.
+3. Create an audience (Resend has been renaming these "Segments" in newer
+   dashboards — same feature, either name) and copy its ID.
+4. Create an API key at [resend.com/api-keys](https://resend.com/api-keys).
+5. In the Vercel project's Settings → Environment Variables, add:
+   - `RESEND_API_KEY` — the key from step 4.
+   - `RESEND_AUDIENCE_ID` — the ID from step 3.
+   - `RESEND_NOTIFY_TO` and `RESEND_FROM` are optional — see `.env.example`
+     for what they default to if you skip them.
+6. Redeploy (Vercel picks up new environment variables on the next deploy,
+   not the running one).
+
+Until that's done, the form fails closed: `api/subscribe.js` checks for
+`RESEND_API_KEY`/`RESEND_AUDIENCE_ID` and returns a clear error asking the
+visitor to email `support@` directly, rather than silently pretending to
+succeed. Test it end-to-end (a real signup, then check it landed in the
+Resend audience and the notification email arrived) before pointing real
+traffic at the site.
+
+**One thing I couldn't verify from here:** exactly how Resend's API reports
+a duplicate signup (someone submitting an email already on the list).
+`api/subscribe.js` guesses from the error message ("already exists" /
+"duplicate") and treats that case as a success rather than an error — worth
+confirming once real signups are flowing, since if Resend's actual wording
+differs, a repeat signup would show a (harmless but unnecessary) error
+message instead of the normal success one.
 
 ## Design system
 
@@ -70,9 +121,6 @@ explicitly rather than inheriting a host background.
 - **Authentication partners** (Veritas, Meridian, Hallmark, Holograph) are
   invented marks standing in for real third-party authenticators. Swap them for
   your actual partners' names and licensed logos.
-- **The newsletter signup is client-side only.** It validates and confirms in
-  the browser and sends nothing. Wire it to a handler (Formspree, a Vercel
-  function, your email tool) before launch.
 - **Unsettled policies read "Coming soon"** (`.tbd` pill) rather than carrying
   an invented number — shipping rates, returns window, payment methods and so
   on, now spanning the FAQ and the three legal pages too (registered business
@@ -85,12 +133,32 @@ explicitly rather than inheriting a host background.
   address, the governing law / jurisdiction, and have someone who does this
   professionally read all three. They're internally consistent with each
   other and with the FAQ's existing claims (the authenticity guarantee, no
-  buyer's premium, single contact address) — don't let a future edit to one
-  contradict the others.
-- **The contact address is `info@pandasportscollectibles.com`** — spelled
-  "collectibles", matching the brand and logo. Make sure the mailbox actually
-  exists and is monitored before launch: it is the only contact route on the
-  site, so a bounce means a lost customer with no trace.
+  buyer's premium) — don't let a future edit to one contradict the others.
+- **There are two live addresses, split by purpose:**
+  `support@pandasportsmemorabilia.com` for anything customer-facing (the
+  footer's email icon on every page, the FAQ contact block, the homepage
+  "Who we are" line, and every contact point on the Refund Policy), and
+  `info@pandasportsmemorabilia.com` for the two legal pages specifically
+  (Privacy Policy and Terms & Conditions). Both mailboxes need to actually
+  exist and be monitored before launch — these are the only contact routes
+  on the site, so a bounce on either means a lost customer with no trace.
+  If that split doesn't match how the two inboxes are actually set up,
+  search each file for the address that's wrong rather than assuming a
+  single find-and-replace fixes it — they're deliberately not identical
+  across the site.
+- **Jake is the one who reads and answers all of it** — not "one of the
+  four of us" on rotation, which the copy claimed before this was
+  corrected. His About bio and role label reflect this; if that ever
+  changes, update both plus the four inline mentions of his name
+  (`grep -n "Jake reads\|Jake answers"`).
+- **The brand renamed from "Panda Sports Collectibles" to "Panda Sports
+  Memorabilia"** after launch prep began — every occurrence of the old
+  name, the old lockup text, and the old email domain has been swept and
+  replaced. The one place that did *not* get renamed is the GitHub repo
+  itself, which is called `pandasportscollectables` (note:
+  "collect**a**bles", a third, unrelated spelling) — that's a
+  repo-hosting detail, not brand copy, and renaming it is a GitHub
+  Settings action outside this codebase; do it there if it bothers you.
 - **The family is Josh, Jake, Nolan and Liam Twohig** — it is family-run, and
   the site says that and no more. Do not reintroduce the family structure,
   the fact that it runs alongside other jobs, or anything else that frames
@@ -127,9 +195,15 @@ why `--ink` is that value and why the masthead is opaque rather than
 translucent — the icon's own ground has to match the bar it sits on.
 
 The wordmark is set live in **Anton**, at the proportions from
-`panda-wordmark.svg`: PANDA 150 / SPORTS 54 / COLLECTIBLES 54, letter-spacing
--3 / +10 / +8 at that scale. Anton is headline and wordmark only, per the
-handoff — never body copy. Archivo still sets the hero and section headings.
+`panda-wordmark.svg`: PANDA 150 / SPORTS 54 / (third line) 54, letter-spacing
+-3 / +10 / +8 at that scale. That source file still literally says
+"COLLECTIBLES" — it's a reference asset from the original brand handoff, kept
+for its type-scale measurements, not shipped or rendered anywhere in the
+repo. The third line now reads "MEMORABILIA" (11 letters instead of 12);
+the same letter-spacing carries over fine, but it was tuned by eye for the
+old word, so nudge it if it ever looks loose or tight against the panda
+mark. Anton is headline and wordmark only, per the handoff — never body
+copy. Archivo still sets the hero and section headings.
 
 ## A note on caching
 

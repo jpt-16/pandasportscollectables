@@ -1,4 +1,4 @@
-/* Panda Sports Collectibles — site behaviour.
+/* Panda Sports Memorabilia — site behaviour.
    Three small jobs: the mobile menu, the email signups, and the FAQ
    accordions. No dependencies. */
 (function () {
@@ -28,18 +28,25 @@
     });
   }
 
-  /* ---------- email signup (hero + footer) ---------- */
+  /* ---------- email signup (hero + footer) ----------
+     Posts to /api/subscribe (a Vercel serverless function — see that
+     file) which adds the address to a Resend audience. The honeypot
+     field rides along unfilled by real visitors; a bot that fills every
+     field trips it server-side. */
   var valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   document.querySelectorAll('form.signup').forEach(function (form) {
     var input = form.querySelector('input[type="email"]');
+    var honeypot = form.querySelector('input[name="company"]');
     var msg = form.querySelector('.signup__msg');
     var button = form.querySelector('button[type="submit"]');
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      if (!valid.test(input.value.trim())) {
+      var email = input.value.trim();
+
+      if (!valid.test(email)) {
         input.setAttribute('aria-invalid', 'true');
         msg.dataset.state = 'error';
         msg.textContent = 'That address looks incomplete — check for a typo and try again.';
@@ -48,10 +55,40 @@
       }
 
       input.removeAttribute('aria-invalid');
-      msg.dataset.state = 'ok';
-      msg.textContent = "You're on the list. We'll email you the day we open.";
       input.disabled = true;
       button.disabled = true;
+      delete msg.dataset.state;
+      msg.textContent = 'Adding you\u2026';
+
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          company: honeypot ? honeypot.value : ''
+        })
+      })
+        .then(function (response) {
+          return response.json().then(function (data) {
+            return { httpOk: response.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (result.httpOk && result.data && result.data.ok) {
+            msg.dataset.state = 'ok';
+            msg.textContent = "You're on the list. We'll email you the day we open.";
+            return;
+          }
+          throw new Error((result.data && result.data.message) || '');
+        })
+        .catch(function (err) {
+          input.disabled = false;
+          button.disabled = false;
+          msg.dataset.state = 'error';
+          msg.textContent =
+            err.message ||
+            "That didn't go through \u2014 try again in a moment, or email support@pandasportsmemorabilia.com directly.";
+        });
     });
 
     input.addEventListener('input', function () {
