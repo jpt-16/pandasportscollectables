@@ -84,8 +84,7 @@ export default async function handler(req, res) {
   // a failure here is logged, never surfaced to the visitor.
   const notifyTo = process.env.RESEND_NOTIFY_TO || 'support@pandasportsmemorabilia.com';
   const fromAddress =
-    process.env.RESEND_FROM ||
-    'Panda Sports Memorabilia <notifications@pandasportsmemorabilia.com>';
+    process.env.RESEND_FROM || 'Panda Sports Memorabilia <info@pandasportsmemorabilia.com>';
 
   try {
     await resend.emails.send({

@@ -43,7 +43,8 @@ python3 tools/sync-chrome.py --check  # exit 1 if any page is stale (CI)
 Both "Notify me" forms POST to `api/subscribe.js`, a Vercel serverless
 function that adds the address to a Resend audience (a real, exportable
 contact list — not just a notification) and, best-effort, emails
-`support@pandasportsmemorabilia.com` so someone sees each signup happen. A
+`support@pandasportsmemorabilia.com` (from `info@pandasportsmemorabilia.com`
+— the automated-sender address) so someone sees each signup happen. A
 hidden honeypot field on both forms catches simple bots server-side.
 
 **To make it actually work, someone needs to:**
@@ -134,14 +135,18 @@ explicitly rather than inheriting a host background.
   professionally read all three. They're internally consistent with each
   other and with the FAQ's existing claims (the authenticity guarantee, no
   buyer's premium) — don't let a future edit to one contradict the others.
-- **There are two live addresses, split by purpose:**
-  `support@pandasportsmemorabilia.com` for anything customer-facing (the
+- **There are two live addresses, split by who's sending, not by topic:**
+  `support@pandasportsmemorabilia.com` is the one shown to people — the
   footer's email icon on every page, the FAQ contact block, the homepage
-  "Who we are" line, and every contact point on the Refund Policy), and
-  `info@pandasportsmemorabilia.com` for the two legal pages specifically
-  (Privacy Policy and Terms & Conditions). Both mailboxes need to actually
-  exist and be monitored before launch — these are the only contact routes
-  on the site, so a bounce on either means a lost customer with no trace.
+  "Who we are" line, every contact point on the Refund Policy, and the two
+  legal pages. `info@pandasportsmemorabilia.com` is the *From* address on
+  anything the system sends automatically without a human typing it — right
+  now just `api/subscribe.js`'s signup notification (see below), later any
+  order-confirmation or launch-announcement email. Replies to those still
+  land in `support@`, since that's the `to` address. Both mailboxes need to
+  actually exist and be monitored before launch — these are the only
+  contact routes on the site, so a bounce on either means a lost customer
+  with no trace.
   If that split doesn't match how the two inboxes are actually set up,
   search each file for the address that's wrong rather than assuming a
   single find-and-replace fixes it — they're deliberately not identical
