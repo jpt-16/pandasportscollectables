@@ -49,10 +49,19 @@
       delete msg.dataset.state;
       msg.textContent = 'Taking you to checkout…';
 
+      // One random key per click, sent to /api/checkout and on to Stripe.
+      // If the browser or network silently retries this exact request, the
+      // retry carries the same key — Stripe returns the original Checkout
+      // Session instead of creating a duplicate one.
+      var idempotencyKey =
+        window.crypto && window.crypto.randomUUID
+          ? window.crypto.randomUUID()
+          : String(Date.now()) + '-' + Math.random().toString(36).slice(2);
+
       fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId: item.priceId })
+        body: JSON.stringify({ priceId: item.priceId, idempotencyKey: idempotencyKey })
       })
         .then(function (response) {
           return response.json().then(function (data) {

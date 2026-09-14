@@ -37,6 +37,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ ok: false, message: 'Missing item.' });
   }
 
+  // The client generates one of these per "Buy now" click and resends the
+  // same value if it has to retry the request (a flaky connection, a
+  // double click that beats the button's disabled state). Passing it
+  // through to Stripe means a retried request returns the *same* Checkout
+  // Session instead of creating a second one.
+  const idempotencyKey =
+    typeof body.idempotencyKey === 'string' ? body.idempotencyKey.trim().slice(0, 255) : undefined;
+
   const apiKey = process.env.STRIPE_SECRET_KEY;
   if (!apiKey) {
     console.error('api/checkout: missing STRIPE_SECRET_KEY environment variable.');
@@ -55,24 +63,27 @@ export default async function handler(req, res) {
     const shippingCents = Number.parseInt(process.env.SHIPPING_FLAT_CENTS || '0', 10) || 0;
     const automaticTax = process.env.STRIPE_AUTOMATIC_TAX === 'true';
 
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      line_items: [{ price: priceId, quantity: 1 }],
-      shipping_address_collection: { allowed_countries: ['US'] },
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: shippingCents, currency: price.currency },
-            display_name: shippingCents ? 'Shipping' : 'Free shipping',
+    const session = await stripe.checkout.sessions.create(
+      {
+        mode: 'payment',
+        line_items: [{ price: priceId, quantity: 1 }],
+        shipping_address_collection: { allowed_countries: ['US'] },
+        shipping_options: [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: { amount: shippingCents, currency: price.currency },
+              display_name: shippingCents ? 'Shipping' : 'Free shipping',
+            },
           },
-        },
-      ],
-      ...(automaticTax ? { automatic_tax: { enabled: true } } : {}),
-      success_url: `${origin}/shop-success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/shop.html?cancelled=1`,
-      metadata: { productId: price.product.id },
-    });
+        ],
+        ...(automaticTax ? { automatic_tax: { enabled: true } } : {}),
+        success_url: `${origin}/shop-success.html?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/shop.html?cancelled=1`,
+        metadata: { productId: price.product.id, productName: price.product.name || '' },
+      },
+      idempotencyKey ? { idempotencyKey } : undefined
+    );
 
     return res.status(200).json({ ok: true, url: session.url });
   } catch (err) {

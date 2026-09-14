@@ -76,7 +76,7 @@ export default async function handler(req, res) {
   }
 
   const productId = session.metadata && session.metadata.productId;
-  let productName = 'your item';
+  let productName = (session.metadata && session.metadata.productName) || 'your item';
 
   if (productId) {
     try {
