@@ -6,6 +6,7 @@
     "node": "22.x"
   },
   "dependencies": {
-    "resend": "^6.28.0"
+    "resend": "^6.28.0",
+    "stripe": "^22.6.2"
   }
 }

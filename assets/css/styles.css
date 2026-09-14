@@ -593,6 +593,27 @@ textarea)[aria-invalid="true"]{border-color:var(--warn);box-shadow:0 0 0 3px rgb
 .coming b{font:700 1.05rem/1.2 var(--display);letter-spacing:-.01em;color:var(--fg)}
 .coming span{font-size:.84rem;line-height:1.45;color:var(--fg-dim)}
 
+/* ---------- shop ---------- */
+.shop-state{padding:2.4rem 0;text-align:center;color:var(--fg-dim);font-size:1.02rem;line-height:1.6}
+.shop-state[data-state="error"]{color:var(--warn)}
+.shop-state a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.shop-card{
+  display:grid;grid-template-rows:auto 1fr;background:var(--panel-2);
+  border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;
+}
+.shop-card__img{aspect-ratio:4/3;background:var(--panel);display:grid;place-items:center;overflow:hidden}
+.shop-card__img img{width:100%;height:100%;object-fit:cover;display:block}
+.shop-card__body{display:grid;align-content:start;gap:.5rem;padding:1.3rem}
+.shop-card__name{font:600 1.12rem/1.25 var(--display);color:var(--fg)}
+.shop-card__desc{font-size:.88rem;line-height:1.55;color:var(--fg-dim)}
+.shop-card__price{font:700 1.3rem/1 var(--display);color:var(--fg);margin-top:.2rem}
+.shop-card__buy{margin-top:.4rem;justify-self:start}
+.shop-card__msg{font-size:.82rem;color:var(--fg-dim);min-height:1.2em}
+.shop-card__msg[data-state="error"]{color:var(--warn)}
+@media (max-width:1000px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.shop-grid{grid-template-columns:1fr}}
+
 /* ---------- who ---------- */
 .roster{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:2.2rem}
 .roster li{display:grid;gap:.3rem;padding-top:1.1rem;border-top:1px solid var(--rule);position:relative}

@@ -1,19 +1,23 @@
 # Panda Sports Memorabilia
 
-A **pre-launch** site for Panda Sports Memorabilia. The shop isn't open, so
-there is no catalogue, no cart and no checkout — the homepage exists to
-explain the proposition and collect email addresses, which it now does for
-real (see "Email signups" below). The pages themselves are still plain
-static HTML with no build step — open `index.html` directly, or serve the
-folder with any static host, and everything renders. The one thing that
-needs Vercel specifically is the signup form's *backend*: `npm install`
-(Vercel runs this automatically on deploy) pulls in the `resend` package for
-`api/subscribe.js`. Browsing the site elsewhere works fine; submitting a
-signup form only reaches Resend when it's actually running on Vercel (or
-via `vercel dev` locally).
+A site for Panda Sports Memorabilia, still pre-launch in the sense that it's
+waiting on real, photographed inventory — but the plumbing to actually sell
+something is now real, not a placeholder. The homepage explains the
+proposition and collects email addresses (see "Email signups" below); the
+Shop page lists and sells whatever's currently in stock via Stripe (see
+"Shop & checkout" below). The pages themselves are still plain static HTML
+with no build step — open `index.html` directly, or serve the folder with
+any static host, and everything renders. What needs Vercel specifically is
+the serverless *backend*: `npm install` (Vercel runs this automatically on
+deploy) pulls in `resend` and `stripe` for the `api/` functions. Browsing
+the site elsewhere works fine; signups, the shop listing and checkout only
+work when the API routes are actually running — on Vercel, or via
+`vercel dev` locally.
 
 ```
-index.html             pre-launch homepage — hero, why, how, what's coming, signup
+index.html             homepage — hero, why, how, what's coming, family, signup
+shop.html              live product listing, pulled from Stripe — "buy now" starts checkout
+shop-success.html      where Stripe sends a buyer back after paying
 about.html             origin story, vault, team, philosophy, figures
 faq.html               authentication, shipping, returns, payment
 privacy.html           what we collect, cookies, your rights
@@ -21,10 +25,14 @@ refunds.html           the authenticity guarantee, returns, damaged parcels
 terms.html             the rules for using the site and buying from us
 assets/css/styles.css  design tokens + every component style
 assets/js/main.js      mobile menu, email signups, FAQ accordions
+assets/js/shop.js      shop.html only — fetches products, drives "buy now"
 assets/img/            favicon
 api/subscribe.js       serverless function: signup -> Resend audience
-package.json           declares the one dependency (resend) + Node version
-.env.example           the environment variables api/subscribe.js needs
+api/products.js        serverless function: list active Stripe products
+api/checkout.js        serverless function: start a Stripe Checkout session
+api/webhook.js         serverless function: payment succeeded -> archive + email
+package.json           declares the two dependencies (resend, stripe) + Node version
+.env.example           the environment variables the api/ functions need
 tools/sync-chrome.py   keeps the header/footer identical across pages
 vercel.json            clean URLs + cache headers
 ```
@@ -80,6 +88,69 @@ confirming once real signups are flowing, since if Resend's actual wording
 differs, a repeat signup would show a (harmless but unnecessary) error
 message instead of the normal success one.
 
+## Shop & checkout
+
+There's no separate database or admin panel for inventory — **Stripe's own
+Product catalog is the inventory system.** Add a Product in the Stripe
+Dashboard (name, description, one or more images, a one-time Price) and
+it appears on `shop.html`; archive it there once it sells and it
+disappears from the site. `api/products.js` lists active products,
+`api/checkout.js` starts a Checkout session for whichever one someone
+clicks "Buy now" on, and `api/webhook.js` — triggered by Stripe the moment
+a payment succeeds — archives that product (so it can't sell twice) and
+sends a confirmation email to the buyer plus a "pack this up" notice to
+`support@` (see the info@/support@ split above: this is the automated
+sender, `info@`, mailing the human inbox, `support@`).
+
+**To make it actually work, someone needs to:**
+
+1. Create a [Stripe](https://dashboard.stripe.com) account. Everything
+   below can be done in test mode first with a `sk_test_...` key — test
+   mode has its own separate Products and its own separate key, completely
+   isolated from live mode, so nothing you list while testing shows up
+   once you switch to the real key.
+2. Add each item for sale as a Product (Dashboard → Product catalog →
+   Add product): name, photo(s), description, and a one-time Price. Every
+   item here is one-of-a-kind, so there's no "quantity" concept to set —
+   one Product, one Price, sold once, then archived.
+3. Get the secret API key from Dashboard → Developers → API keys and set
+   `STRIPE_SECRET_KEY` in Vercel's Environment Variables.
+4. Add a webhook endpoint (Dashboard → Developers → Webhooks → Add
+   endpoint) pointed at `https://<your-domain>/api/webhook`, listening for
+   the `checkout.session.completed` event. Copy its signing secret into
+   `STRIPE_WEBHOOK_SECRET`.
+5. Decide `SHIPPING_FLAT_CENTS` and whether to enable `STRIPE_AUTOMATIC_TAX`
+   — see `.env.example` for what each does and defaults to.
+6. Redeploy.
+
+Until `STRIPE_SECRET_KEY` is set, both `api/products.js` and
+`api/checkout.js` fail closed with a clear "shop is misconfigured" message
+rather than silently breaking. Test the whole loop in Stripe's test mode
+(list a test product, buy it with [a Stripe test
+card](https://docs.stripe.com/testing#cards), confirm the product
+auto-archives and both emails arrive) before switching to a live key and
+listing anything real.
+
+**Known gaps, by design, not oversight:**
+
+- **No inventory reservation.** Two people clicking "Buy" on the same
+  one-of-a-kind item within the same few seconds could both reach
+  checkout; the webhook closes that window as fast as it can (archiving
+  the product the instant the first payment succeeds), but it isn't a
+  hard lock. If it ever actually happens, refund the second payment by
+  hand — rare enough at this scale not to be worth more machinery.
+- **Shipping is a single flat rate** (`SHIPPING_FLAT_CENTS`), not
+  calculated by weight, size or destination. Fine for a launch with a
+  handful of similar-sized items; revisit once the catalog is more varied.
+- **Sales tax is off by default.** Turning on `STRIPE_AUTOMATIC_TAX`
+  requires first configuring Stripe Tax in the Dashboard (registrations,
+  product tax codes) — flip the env var only after that's done, or
+  checkout sessions will fail to create.
+- **No accounts, guest checkout only.** Deliberate — see the "what's next"
+  reasoning if this ever gets revisited: one-of-a-kind inventory doesn't
+  benefit much from repeat-purchase account features, and forced sign-in
+  is one of the biggest causes of cart abandonment for a small, new store.
+
 ## Design system
 
 The mark is black, white and one green, so the site is too.
@@ -107,10 +178,14 @@ UI; **Barlow** for body copy.
 
 Two structural rules the pages stick to:
 
-- **Nothing is shown that doesn't exist.** There are no product cards, no
-  prices and no inventory counts, because there is no inventory yet. The
-  "what we'll be stocking" section lists categories and says plainly that
-  there's nothing to browse.
+- **Nothing is shown that doesn't exist.** The marketing pages (home,
+  about, FAQ) carry no invented product cards, prices or inventory
+  counts — the homepage's "what we'll be stocking" section lists
+  categories, not specific items, since it doesn't know what's in stock.
+  `shop.html` is the one exception, and it isn't really an exception: it
+  shows real Stripe products, live, and shows nothing at all (with an
+  honest "nothing listed right now" message) rather than a placeholder
+  when the shelf is empty.
 - **The hero is typographic.** No illustration, no mocked-up product. The
   green rules from the logo are the layout system.
 
@@ -128,6 +203,13 @@ explicitly rather than inheriting a host background.
   name and address, governing law, currency, retention periods). Search the
   HTML for `class="tbd"` to find every one. Replace them as each is decided;
   all of them must be real before the first order.
+  **Two of these are now half-answered by the Shop & checkout section
+  above** — the FAQ's "How can I pay?" and "What does shipping cost?"
+  still read "Coming soon," but checkout now exists and shipping is a
+  real (if flat) `SHIPPING_FLAT_CENTS` charge. Update that copy once
+  you've actually set a shipping rate and looked at which payment methods
+  are enabled in the Stripe Dashboard, rather than leaving it saying
+  "coming soon" about something that no longer is.
 - **Privacy, Refunds and Terms are a drafted starting point, not a legally
   reviewed set of documents.** Each carries a small note box at the top saying
   so. Before relying on them: confirm the registered business name and
