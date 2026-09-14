@@ -9,6 +9,9 @@ dependencies: open `index.html`, or serve the folder with any static host.
 index.html            pre-launch homepage — hero, why, how, what's coming, signup
 about.html            origin story, vault, team, philosophy, figures
 faq.html              authentication, shipping, returns, payment
+privacy.html          what we collect, cookies, your rights
+refunds.html          the authenticity guarantee, returns, damaged parcels
+terms.html            the rules for using the site and buying from us
 assets/css/styles.css design tokens + every component style
 assets/js/main.js     mobile menu, email signups, FAQ accordions
 assets/img/           favicon
@@ -72,8 +75,18 @@ explicitly rather than inheriting a host background.
   function, your email tool) before launch.
 - **Unsettled policies read "Coming soon"** (`.tbd` pill) rather than carrying
   an invented number — shipping rates, returns window, payment methods and so
-  on. Search the HTML for `class="tbd"` to find every one. Replace them as
-  each policy is decided; all of them must be real before the first order.
+  on, now spanning the FAQ and the three legal pages too (registered business
+  name and address, governing law, currency, retention periods). Search the
+  HTML for `class="tbd"` to find every one. Replace them as each is decided;
+  all of them must be real before the first order.
+- **Privacy, Refunds and Terms are a drafted starting point, not a legally
+  reviewed set of documents.** Each carries a small note box at the top saying
+  so. Before relying on them: confirm the registered business name and
+  address, the governing law / jurisdiction, and have someone who does this
+  professionally read all three. They're internally consistent with each
+  other and with the FAQ's existing claims (the authenticity guarantee, no
+  buyer's premium, single contact address) — don't let a future edit to one
+  contradict the others.
 - **The contact address is `info@pandasportscollectibles.com`** — spelled
   "collectibles", matching the brand and logo. Make sure the mailbox actually
   exists and is monitored before launch: it is the only contact route on the
@@ -93,9 +106,6 @@ explicitly rather than inheriting a host background.
 - Product art is inline SVG in the `<symbol>` sprite at the top of each page.
   Replace `<use href="#i-…">` references with real photography when it's shot;
   the plinth styling is built to sit behind cut-out product shots.
-- The panda mark is a simplified geometric reading of the logo, drawn to stay
-  legible at 40px in the header. Swap in the real artwork as SVG when you have
-  it — replace `.lockup__mark` in `index.html` and re-run `sync-chrome.py`.
 
 ## Brand assets
 

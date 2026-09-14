@@ -19,8 +19,16 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "index.html"
-PAGES = ["about.html", "faq.html"]
-NAV_FOR_PAGE = {"about.html": "About", "faq.html": "FAQ"}
+PAGES = ["about.html", "faq.html", "privacy.html", "refunds.html", "terms.html"]
+NAV_FOR_PAGE = {
+    "about.html": "About",
+    "faq.html": "FAQ",
+    # These three aren't in the top nav (footer only, by design), so no
+    # label below matches an actual <a> there — mark_current just no-ops.
+    "privacy.html": "Privacy",
+    "refunds.html": "Refunds",
+    "terms.html": "Terms",
+}
 
 
 def block(text, name):
