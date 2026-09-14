@@ -255,6 +255,11 @@ button,input{font:inherit;color:inherit}
 .foot__legal ul{display:flex;flex-wrap:wrap;gap:.9rem 1.3rem}
 .foot__legal a{font:500 .7rem/1 var(--cond);letter-spacing:.18em;text-transform:uppercase;color:var(--steel)}
 .foot__legal a:hover{color:var(--green-lite)}
+.foot__legal p a{
+  font:inherit;letter-spacing:normal;text-transform:none;
+  color:var(--green-lite);text-decoration:underline;text-underline-offset:2px;
+}
+.foot__legal p a:hover{color:var(--green)}
 
 /* ============================ RESPONSIVE ============================ */
 
