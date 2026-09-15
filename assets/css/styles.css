@@ -128,7 +128,7 @@ button,input{font:inherit;color:inherit}
 /* ---------- masthead ---------- */
 .masthead{
   position:sticky;top:0;z-index:40;
-  border-bottom:1px solid var(--line-dark);
+  border-bottom:1px solid var(--line-light);
 }
 .masthead::before{
   /* the blur lives on a pseudo-element, not .masthead itself, because
@@ -141,7 +141,7 @@ button,input{font:inherit;color:inherit}
      element is a sibling of the header's content, not an ancestor
      of it, so it can't intercept .nav's fixed positioning. */
   content:"";position:absolute;inset:0;z-index:-1;
-  background:var(--ink);
+  background:var(--paper);
 }
 .masthead__inner{display:flex;align-items:center;gap:1.5rem;padding-block:.85rem}
 .nav{display:flex;gap:1.7rem;margin-left:auto}
@@ -154,9 +154,17 @@ button,input{font:inherit;color:inherit}
 .nav a:active{opacity:.7}
 .masthead__tools{display:flex;align-items:center;gap:.35rem;margin-left:1rem}
 
+/* the bar itself is --paper now, but the mobile drawer below (.nav at
+   max-width:820px) stays a full-screen --ink overlay, so nav link and
+   burger colors need a light/dark split by context, not one fixed value */
+.masthead .nav a{color:var(--on-light)}
+.masthead .nav a::after{background:var(--green-deep)}
+.masthead .nav a.is-current{color:var(--green-deep)}
+
 .burger{display:none;width:40px;height:40px;background:none;border:0;padding:9px;cursor:pointer;transition:transform .16s var(--ease-out)}
 .burger:active{transform:scale(.92)}
-.burger span[aria-hidden]{display:block;height:1.6px;background:var(--paper-2);margin:4px 0;transition:transform .25s var(--ease-in-out),opacity .2s ease}
+.burger span[aria-hidden]{display:block;height:1.6px;background:var(--on-light);margin:4px 0;transition:transform .25s var(--ease-in-out),opacity .2s ease,background .2s ease}
+.burger[aria-expanded="true"] span[aria-hidden]{background:var(--paper-2)}
 .burger[aria-expanded="true"] span[aria-hidden]:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
 .burger[aria-expanded="true"] span[aria-hidden]:nth-child(2){opacity:0}
 .burger[aria-expanded="true"] span[aria-hidden]:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
@@ -184,6 +192,13 @@ button,input{font:inherit;color:inherit}
   font:400 .58rem/1 "Anton","Barlow Condensed",system-ui,sans-serif;
   letter-spacing:.148em;text-transform:uppercase;color:var(--steel);
 }
+
+/* header lockup sits on --paper now (see .masthead::before); the footer's
+   .lockup--foot keeps the base colors above, which are tuned for its dark
+   ground */
+.masthead .lockup__word{color:var(--ink)}
+.masthead .lockup__rule{color:var(--ink)}
+.masthead .lockup__sub{color:var(--slate)}
 
 /* ============================ HERO ============================ */
 
@@ -290,6 +305,11 @@ button,input{font:inherit;color:inherit}
   }
   .nav.is-open{transform:none}
   .nav a{font-size:1.4rem;letter-spacing:.12em}
+  /* the drawer itself is still --ink even though the bar behind it is now
+     --paper, so its links need the light colors back */
+  .masthead .nav a{color:var(--paper-2)}
+  .masthead .nav a::after{background:var(--green-lite)}
+  .masthead .nav a.is-current{color:var(--green-lite)}
   .burger{display:block;position:relative;z-index:60}
   .masthead__inner{gap:.5rem}
   .masthead__tools{margin-left:auto}
