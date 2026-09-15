@@ -168,7 +168,7 @@ button,input{font:inherit;color:inherit}
    measurements, never shipped); the live third line now reads
    "MEMORABILIA" — one letter shorter, same spacing carries over fine. */
 .lockup{display:flex;align-items:center;gap:.8rem}
-.lockup__mark{width:58px;height:39px;flex:none}
+.lockup__mark{width:58px;height:38px;flex:none}
 .lockup__type{display:grid;gap:3px;line-height:1}
 .lockup__word{
   font:400 1.62rem/1 "Anton","Archivo",system-ui,sans-serif;

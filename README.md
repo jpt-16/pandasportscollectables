@@ -26,7 +26,7 @@ terms.html             the rules for using the site and buying from us
 assets/css/styles.css  design tokens + every component style
 assets/js/main.js      mobile menu, email signups, FAQ accordions
 assets/js/shop.js      shop.html only — fetches products, drives "buy now"
-assets/img/            favicon
+assets/brand/           logo, mark, and favicon files
 api/subscribe.js       serverless function: signup -> Resend audience
 api/products.js        serverless function: list active Stripe products
 api/checkout.js        serverless function: start a Stripe Checkout session
@@ -264,22 +264,35 @@ explicitly rather than inheriting a host background.
 
 ## Brand assets
 
-`assets/brand/` holds the real logo files from the brand handoff — not
-redrawn, not traced.
+`assets/brand/` holds the mascot mark (replacing the original brand handoff's
+panda icon) plus the original wordmark handoff.
 
-- `panda-icon.png` — the header and footer mark. Cropped from
-  `panda-icon-512-dark.png` to the artwork's own bounds (the source has ~40px
-  of dead margin) and resized to 180×121, which covers the 58×39 display slot
-  at 3x.
-- `favicon-16.png`, `favicon-32.png`, `apple-touch-icon-180.png` — shipped as
-  supplied, linked per the handoff's markup.
-
-**Use the `-dark` icon on dark grounds, never the transparent one.** The
-transparent artwork is solid black with no keyline, so on a near-black header
-the ears and shoulders vanish and only the face floats. The `-dark` version has
-a white keyline drawn for exactly this. Its background is `#0F0F10`, which is
-why `--ink` is that value and why the masthead is opaque rather than
-translucent — the icon's own ground has to match the bar it sits on.
+- `panda-mark.png` — the mascot face, solid dark art on an opaque white
+  background (not transparent). Use only on light grounds.
+- `panda-mark-reversed.png` — the same mark in white on a transparent
+  background. This is what's actually in the header and footer
+  (`.lockup__mark`), since both sit on the dark `--ink` masthead/footer.
+  `.lockup__mark`'s CSS aspect ratio (58×38) is tuned to this file's own
+  crop — if it's ever replaced, recompute the ratio rather than reusing
+  these numbers blindly.
+- `favicon-16.png`, `favicon-32.png`, `apple-touch-icon-180.png` — generated
+  from `panda-mark-reversed.png`, composited onto a `#0F0F10` (`--ink`)
+  square so the icon's own background matches the site's actual dark theme
+  regardless of the browser chrome around it. Regenerate from that source if
+  the mark changes; don't hand-edit these PNGs directly.
+- `panda-logo-memorabilia-horizontal.png`, `panda-logo-memorabilia-stacked.png`
+  — full mark + wordmark lockups on white, used as the `og:image` /
+  `twitter:image` for link previews (see each page's `<head>`). Not used
+  anywhere else — the on-page wordmark is still live text (see below), not
+  a flattened image, for crispness and accessibility.
+- `panda-logo-memorabilia-dark.png`, `panda-logo-memorabilia-dark-badge.png`
+  — the same lockups on black; the badge (circular) variant is a good fit
+  for a social profile picture, but nothing in this repo wires it in
+  automatically — upload it wherever that's set separately.
+- `panda-logo.png` — **do not use this one.** It still reads "PANDA SPORTS
+  COLLECTIBLES," the pre-rename wordmark, baked into the image. Kept in the
+  repo only because it was part of the same upload; replace or delete it
+  once a corrected version exists.
 
 The wordmark is set live in **Anton**, at the proportions from
 `panda-wordmark.svg`: PANDA 150 / SPORTS 54 / (third line) 54, letter-spacing
