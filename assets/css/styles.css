@@ -636,6 +636,8 @@ textarea)[aria-invalid="true"]{border-color:var(--warn);box-shadow:0 0 0 3px rgb
 .shop-card__buy{margin-top:.4rem;justify-self:start}
 .shop-card__msg{font-size:.82rem;color:var(--fg-dim);min-height:1.2em}
 .shop-card__msg[data-state="error"]{color:var(--warn)}
+.shop-legal{margin-top:2rem;font-size:.78rem;line-height:1.6;color:var(--fg-dim);max-width:68ch}
+.shop-legal a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
 @media (max-width:1000px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.shop-grid{grid-template-columns:1fr}}
 
