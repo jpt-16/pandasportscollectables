@@ -97,5 +97,19 @@ export default async function handler(req, res) {
     console.error('api/subscribe: notification email failed (non-fatal):', err);
   }
 
+  // Best-effort welcome email to the subscriber. Same non-fatal treatment —
+  // they're already on the list either way.
+  try {
+    await resend.emails.send({
+      from: fromAddress,
+      to: email,
+      replyTo: 'support@pandasportsmemorabilia.com',
+      subject: "You're on the list",
+      text: "Thanks for signing up — we'll email you the moment Panda Sports Memorabilia opens, before it's public anywhere else. No spam in the meantime, just the one email when it's time.",
+    });
+  } catch (err) {
+    console.error('api/subscribe: welcome email failed (non-fatal):', err);
+  }
+
   return res.status(200).json({ ok: true });
 }
