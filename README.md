@@ -96,11 +96,39 @@ Dashboard (name, description, one or more images, a one-time Price) and
 it appears on `shop.html`; archive it there once it sells and it
 disappears from the site. `api/products.js` lists active products,
 `api/checkout.js` starts a Checkout session for whichever one someone
-clicks "Buy now" on, and `api/webhook.js` — triggered by Stripe the moment
-a payment succeeds — archives that product (so it can't sell twice) and
-sends a confirmation email to the buyer plus a "pack this up" notice to
-`support@` (see the info@/support@ split above: this is the automated
-sender, `info@`, mailing the human inbox, `support@`).
+clicks "Buy now" on, and `api/webhook.js` handles what Stripe reports back
+at each stage (see "Charge on ship, not on order" below) — archiving the
+product, and sending a confirmation email to the buyer plus a "pack this
+up" notice to `support@` (see the info@/support@ split above: this is the
+automated sender, `info@`, mailing the human inbox, `support@`).
+
+### Charge on ship, not on order
+
+Checkout only **authorizes** the buyer's card — it doesn't charge it.
+`api/checkout.js` sets `capture_method: 'manual'` on the PaymentIntent, so
+the money is held but not taken. Whoever's fulfilling the order captures it
+by hand once the item is actually packed and going out:
+
+**Stripe Dashboard → Payments → find the order (it's flagged "Uncaptured")
+→ Capture.** That's the moment the buyer is actually charged.
+
+Why: buyers shouldn't be paying up front and then waiting, unsure whether
+their money bought something that's ever going to ship. This way the card
+isn't touched until the item is provably on its way.
+
+The catch — **authorization holds expire if never captured, typically
+around 7 days out** (exact timing varies a little by card network). If an
+order sits unshipped past that window, the hold falls off and the buyer
+would have to be asked to pay again. `api/webhook.js` puts an approximate
+"capture by" date in the internal notification email as a reminder. Since
+items here are already in hand before they're ever listed (see the About
+page), a normal order should ship well inside that window — but a vacation,
+a backlog, or a forgotten order could still blow past it. Worth checking
+the Dashboard's Payments tab for anything sitting uncaptured a few days in.
+
+If an order should be cancelled before it ships (item turns out damaged,
+buyer changes their mind, whatever) — cancel the PaymentIntent instead of
+capturing it. Nothing was ever charged, so there's nothing to refund.
 
 **To make it actually work, someone needs to:**
 
@@ -117,7 +145,9 @@ sender, `info@`, mailing the human inbox, `support@`).
    `STRIPE_SECRET_KEY` in Vercel's Environment Variables.
 4. Add a webhook endpoint (Dashboard → Developers → Webhooks → Add
    endpoint) pointed at `https://<your-domain>/api/webhook`, listening for
-   the `checkout.session.completed` event. Copy its signing secret into
+   **both** the `checkout.session.completed` event (fires when a card is
+   authorized) and the `payment_intent.succeeded` event (fires when that
+   authorization is captured). Copy the endpoint's signing secret into
    `STRIPE_WEBHOOK_SECRET`.
 5. Decide `SHIPPING_FLAT_CENTS` and whether to enable `STRIPE_AUTOMATIC_TAX`
    — see `.env.example` for what each does and defaults to.
@@ -128,7 +158,9 @@ Until `STRIPE_SECRET_KEY` is set, both `api/products.js` and
 rather than silently breaking. Test the whole loop in Stripe's test mode
 (list a test product, buy it with [a Stripe test
 card](https://docs.stripe.com/testing#cards), confirm the product
-auto-archives and both emails arrive) before switching to a live key and
+auto-archives and the "order confirmed, not charged yet" emails arrive,
+then manually capture the payment in the Dashboard and confirm the
+"you've been charged" email follows) before switching to a live key and
 listing anything real.
 
 **Known gaps, by design, not oversight:**
@@ -136,9 +168,10 @@ listing anything real.
 - **No inventory reservation.** Two people clicking "Buy" on the same
   one-of-a-kind item within the same few seconds could both reach
   checkout; the webhook closes that window as fast as it can (archiving
-  the product the instant the first payment succeeds), but it isn't a
-  hard lock. If it ever actually happens, refund the second payment by
-  hand — rare enough at this scale not to be worth more machinery.
+  the product the instant the first card is authorized), but it isn't a
+  hard lock. If it ever actually happens, cancel the second authorization
+  instead of capturing it — nothing was charged, so there's nothing to
+  refund. Rare enough at this scale not to be worth more machinery.
 - **Shipping is a single flat rate** (`SHIPPING_FLAT_CENTS`), not
   calculated by weight, size or destination. Fine for a launch with a
   handful of similar-sized items; revisit once the catalog is more varied.

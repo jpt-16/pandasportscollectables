@@ -2,11 +2,20 @@
 // single item. Every product here is one-of-a-kind, so quantity is always
 // 1 and never adjustable — there's nothing to add more of.
 //
-// This does not reserve the item. Two people clicking "Buy" on the same
-// piece at nearly the same moment is a real, if rare, possibility for a
-// small shop — the webhook (api/webhook.js) archives the product the
-// instant a payment succeeds, which closes that window to seconds, not
-// minutes. If it ever does happen, refund the second payment by hand.
+// Payment is authorized here but not captured — capture_method: 'manual'
+// below means the card is held, not charged, until someone captures the
+// PaymentIntent by hand from the Stripe Dashboard (done when the item
+// actually ships). See api/webhook.js for what happens at each stage.
+// Card authorization holds expire if never captured — usually within about
+// 7 days — so an order needs to ship (and get captured) inside that window
+// or the buyer has to be asked to pay again.
+//
+// This does not reserve the item ahead of the authorization itself. Two
+// people clicking "Buy" on the same piece at nearly the same moment is a
+// real, if rare, possibility for a small shop — the webhook archives the
+// product the instant the card is authorized, which closes that window to
+// seconds, not minutes. If it ever does happen, cancel the second
+// authorization (it hasn't been charged) instead of refunding.
 
 import Stripe from 'stripe';
 
@@ -66,6 +75,13 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create(
       {
         mode: 'payment',
+        // Manual capture only supports a narrower set of payment methods
+        // than Checkout's default auto-detection, so it's pinned to card.
+        payment_method_types: ['card'],
+        payment_intent_data: {
+          capture_method: 'manual',
+          metadata: { productId: price.product.id, productName: price.product.name || '' },
+        },
         line_items: [{ price: priceId, quantity: 1 }],
         shipping_address_collection: { allowed_countries: ['US'] },
         shipping_options: [
