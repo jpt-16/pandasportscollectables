@@ -16,8 +16,8 @@ work when the API routes are actually running — on Vercel, or via
 
 ```
 index.html             homepage — hero, why, how, what's coming, family, signup
-shop.html              live product listing, pulled from Stripe — "buy now" starts checkout
-shop-success.html      where Stripe sends a buyer back after paying
+shop.html              live product listing, pulled from Stripe — "reserve" opens an order form
+shop-success.html      where the site sends a buyer after reserving (no payment yet)
 about.html             origin story, vault, team, philosophy, figures
 faq.html               authentication, shipping, returns, payment
 privacy.html           what we collect, cookies, your rights
@@ -25,12 +25,11 @@ refunds.html           the authenticity guarantee, returns, damaged parcels
 terms.html             the rules for using the site and buying from us
 assets/css/styles.css  design tokens + every component style
 assets/js/main.js      mobile menu, email signups, FAQ accordions
-assets/js/shop.js      shop.html only — fetches products, drives "buy now"
+assets/js/shop.js      shop.html only — fetches products, drives the order form
 assets/brand/           logo, mark, and favicon files
 api/subscribe.js       serverless function: signup -> Resend audience
 api/products.js        serverless function: list active Stripe products
-api/checkout.js        serverless function: start a Stripe Checkout session
-api/webhook.js         serverless function: payment succeeded -> archive + email
+api/order.js           serverless function: reserve an item -> archive + email (no payment)
 package.json           declares the two dependencies (resend, stripe) + Node version
 .env.example           the environment variables the api/ functions need
 tools/sync-chrome.py   keeps the header/footer identical across pages
@@ -94,92 +93,87 @@ There's no separate database or admin panel for inventory — **Stripe's own
 Product catalog is the inventory system.** Add a Product in the Stripe
 Dashboard (name, description, one or more images, a one-time Price) and
 it appears on `shop.html`; archive it there once it sells and it
-disappears from the site. `api/products.js` lists active products,
-`api/checkout.js` starts a Checkout session for whichever one someone
-clicks "Buy now" on, and `api/webhook.js` handles what Stripe reports back
-at each stage (see "Charge on ship, not on order" below) — archiving the
-product, and sending a confirmation email to the buyer plus a "pack this
-up" notice to `support@` (see the info@/support@ split above: this is the
-automated sender, `info@`, mailing the human inbox, `support@`).
+disappears from the site. `api/products.js` lists active products, and
+`api/order.js` handles whatever someone submits after clicking "Reserve
+this item" — see "Reserve now, invoice on ship" below for the whole flow.
 
-### Charge on ship, not on order
+### Reserve now, invoice on ship
 
-Checkout only **authorizes** the buyer's card — it doesn't charge it.
-`api/checkout.js` sets `capture_method: 'manual'` on the PaymentIntent, so
-the money is held but not taken. Whoever's fulfilling the order captures it
-by hand once the item is actually packed and going out:
+There's no card entry anywhere on the site. Clicking "Reserve this item"
+opens an inline form for name + shipping address; submitting it POSTs to
+`api/order.js`, which archives the Stripe Product (so it can't be
+reserved twice) and sends two emails — a "you're reserved, no charge yet"
+note to the buyer, and a "pack this up" notice to `support@` with the
+shipping details (see the info@/support@ split above: `info@` is the
+automated sender, `support@` is the human inbox both land in).
 
-**Stripe Dashboard → Payments → find the order (it's flagged "Uncaptured")
-→ Capture.** That's the moment the buyer is actually charged.
+No money moves at this point at all — not authorized, not held, nothing.
 
-Why: buyers shouldn't be paying up front and then waiting, unsure whether
-their money bought something that's ever going to ship. This way the card
-isn't touched until the item is provably on its way.
+**The buyer is only ever charged once, by an invoice sent after the item
+actually ships:**
 
-The catch — **authorization holds expire if never captured, typically
-around 7 days out** (exact timing varies a little by card network). If an
-order sits unshipped past that window, the hold falls off and the buyer
-would have to be asked to pay again. `api/webhook.js` puts an approximate
-"capture by" date in the internal notification email as a reminder. Since
-items here are already in hand before they're ever listed (see the About
-page), a normal order should ship well inside that window — but a vacation,
-a backlog, or a forgotten order could still blow past it. Worth checking
-the Dashboard's Payments tab for anything sitting uncaptured a few days in.
+**Stripe Dashboard → Invoices → Create invoice** (customer email from the
+order notification, one line item for the price, no need to touch
+Products — draft invoices aren't tied to a Product record) **→ Send.**
+Stripe emails the buyer a hosted invoice page; paying it is the only
+place a card is ever charged. The Stripe MCP connector can also create
+and send one directly if asked to, using the order details from the
+notification email.
 
-If an order should be cancelled before it ships (item turns out damaged,
-buyer changes their mind, whatever) — cancel the PaymentIntent instead of
-capturing it. Nothing was ever charged, so there's nothing to refund.
+Why this shape instead of authorize-then-capture: no expiring
+authorization hold to race against, no risk of a stale hold falling off
+and having to ask the buyer to pay again. The tradeoff is that sending the
+invoice is a manual step every time — there's no code tying "mark this
+shipped" to "send the invoice," so it only happens if someone remembers to
+do it once the package is actually out the door.
 
 **To make it actually work, someone needs to:**
 
 1. Create a [Stripe](https://dashboard.stripe.com) account. Everything
    below can be done in test mode first with a `sk_test_...` key — test
-   mode has its own separate Products and its own separate key, completely
-   isolated from live mode, so nothing you list while testing shows up
-   once you switch to the real key.
+   mode has its own separate Products, Invoices and its own separate key,
+   completely isolated from live mode, so nothing you list or invoice
+   while testing shows up once you switch to the real key.
 2. Add each item for sale as a Product (Dashboard → Product catalog →
    Add product): name, photo(s), description, and a one-time Price. Every
    item here is one-of-a-kind, so there's no "quantity" concept to set —
-   one Product, one Price, sold once, then archived.
+   one Product, one Price, reserved once, then archived.
 3. Get the secret API key from Dashboard → Developers → API keys and set
    `STRIPE_SECRET_KEY` in Vercel's Environment Variables.
-4. Add a webhook endpoint (Dashboard → Developers → Webhooks → Add
-   endpoint) pointed at `https://<your-domain>/api/webhook`, listening for
-   **both** the `checkout.session.completed` event (fires when a card is
-   authorized) and the `payment_intent.succeeded` event (fires when that
-   authorization is captured). Copy the endpoint's signing secret into
-   `STRIPE_WEBHOOK_SECRET`.
-5. Decide `SHIPPING_FLAT_CENTS` and whether to enable `STRIPE_AUTOMATIC_TAX`
-   — see `.env.example` for what each does and defaults to.
-6. Redeploy.
+4. Redeploy.
 
-Until `STRIPE_SECRET_KEY` is set, both `api/products.js` and
-`api/checkout.js` fail closed with a clear "shop is misconfigured" message
-rather than silently breaking. Test the whole loop in Stripe's test mode
-(list a test product, buy it with [a Stripe test
-card](https://docs.stripe.com/testing#cards), confirm the product
-auto-archives and the "order confirmed, not charged yet" emails arrive,
-then manually capture the payment in the Dashboard and confirm the
-"you've been charged" email follows) before switching to a live key and
-listing anything real.
+There's no webhook to configure for the reserve step — `api/order.js`
+doesn't need Stripe to call it back, it's a one-way "archive the product
+and send two emails" action. (A webhook could eventually notify `support@`
+when an invoice gets paid, via the `invoice.paid` event — not built, since
+nothing needs it yet.)
+
+Until `STRIPE_SECRET_KEY` is set, both `api/products.js` and `api/order.js`
+fail closed with a clear "shop is misconfigured" message rather than
+silently breaking. Test the whole loop in Stripe's test mode (list a test
+product, reserve it through the site, confirm the product auto-archives
+and both emails arrive, then create and send a test-mode invoice from the
+Dashboard and pay it with [a Stripe test
+card](https://docs.stripe.com/testing#cards)) before switching to a live
+key and listing anything real.
 
 **Known gaps, by design, not oversight:**
 
-- **No inventory reservation.** Two people clicking "Buy" on the same
-  one-of-a-kind item within the same few seconds could both reach
-  checkout; the webhook closes that window as fast as it can (archiving
-  the product the instant the first card is authorized), but it isn't a
-  hard lock. If it ever actually happens, cancel the second authorization
-  instead of capturing it — nothing was charged, so there's nothing to
-  refund. Rare enough at this scale not to be worth more machinery.
-- **Shipping is a single flat rate** (`SHIPPING_FLAT_CENTS`), not
-  calculated by weight, size or destination. Fine for a launch with a
-  handful of similar-sized items; revisit once the catalog is more varied.
-- **Sales tax is off by default.** Turning on `STRIPE_AUTOMATIC_TAX`
-  requires first configuring Stripe Tax in the Dashboard (registrations,
-  product tax codes) — flip the env var only after that's done, or
-  checkout sessions will fail to create.
-- **No accounts, guest checkout only.** Deliberate — see the "what's next"
+- **No inventory reservation guarantee.** Two people submitting the order
+  form on the same one-of-a-kind item within the same few seconds could
+  both get through; `api/order.js` archives the product the instant the
+  first request lands, which closes that window to milliseconds, but it
+  isn't a hard lock. If it ever actually happens, just don't invoice (or
+  don't send) the second order — nothing was ever charged, so there's
+  nothing to refund or cancel.
+- **Invoicing is entirely manual.** Nothing in this codebase creates or
+  sends a Stripe Invoice automatically. That's deliberate for now — see
+  above — but means a forgotten order stays un-invoiced indefinitely with
+  no reminder beyond the original "pack this up" email.
+- **Shipping and tax aren't calculated anywhere in code.** Since invoices
+  are created by hand, whoever's creating one adds a shipping line item
+  and any tax manually rather than the site computing it automatically.
+- **No accounts, guest ordering only.** Deliberate — see the "what's next"
   reasoning if this ever gets revisited: one-of-a-kind inventory doesn't
   benefit much from repeat-purchase account features, and forced sign-in
   is one of the biggest causes of cart abandonment for a small, new store.
@@ -236,13 +230,12 @@ explicitly rather than inheriting a host background.
   name and address, governing law, currency, retention periods). Search the
   HTML for `class="tbd"` to find every one. Replace them as each is decided;
   all of them must be real before the first order.
-  **Two of these are now half-answered by the Shop & checkout section
-  above** — the FAQ's "How can I pay?" and "What does shipping cost?"
-  still read "Coming soon," but checkout now exists and shipping is a
-  real (if flat) `SHIPPING_FLAT_CENTS` charge. Update that copy once
-  you've actually set a shipping rate and looked at which payment methods
-  are enabled in the Stripe Dashboard, rather than leaving it saying
-  "coming soon" about something that no longer is.
+  **One of these is now answered by the Shop & checkout section above** —
+  the FAQ's "How can I pay?" no longer reads "Coming soon" now that
+  ordering and invoicing exist. "What does shipping cost?" still does,
+  since shipping isn't calculated anywhere in code — it's whatever's added
+  as a line item on the invoice, by hand, per order. Decide a real
+  approach to shipping cost before answering that one for real.
 - **Privacy, Refunds and Terms are a drafted starting point, not a legally
   reviewed set of documents.** Each carries a small note box at the top saying
   so. Before relying on them: confirm the registered business name and

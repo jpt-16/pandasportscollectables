@@ -30,7 +30,7 @@ NAV_FOR_PAGE = {
     "privacy.html": "Privacy",
     "refunds.html": "Refunds",
     "terms.html": "Terms",
-    "shop-success.html": "Order confirmed",
+    "shop-success.html": "Order reserved",
 }
 
 

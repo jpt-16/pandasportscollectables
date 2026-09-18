@@ -634,12 +634,21 @@ textarea)[aria-invalid="true"]{border-color:var(--warn);box-shadow:0 0 0 3px rgb
 .shop-card__desc{font-size:.88rem;line-height:1.55;color:var(--fg-dim)}
 .shop-card__price{font:700 1.3rem/1 var(--display);color:var(--fg);margin-top:.2rem}
 .shop-card__buy{margin-top:.4rem;justify-self:start}
-.shop-card__msg{font-size:.82rem;color:var(--fg-dim);min-height:1.2em}
-.shop-card__msg[data-state="error"]{color:var(--warn)}
 .shop-legal{margin-top:2rem;font-size:.78rem;line-height:1.6;color:var(--fg-dim);max-width:68ch}
 .shop-legal a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
 @media (max-width:1000px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.shop-grid{grid-template-columns:1fr}}
+
+/* ---------- shop order form (reserve now, invoice on ship) ---------- */
+.order-form{display:grid;gap:.55rem;margin-top:.4rem}
+.order-form input{
+  background:var(--panel);color:var(--fg);width:100%;
+  border:1.5px solid rgba(18,19,21,.26);border-radius:var(--r);padding:.85rem .95rem;font:400 .94rem var(--body);
+}
+.order-form input::placeholder{color:var(--fg-dim)}
+.order-form input:focus{outline:none;border-color:var(--accentfg);box-shadow:0 0 0 3px rgba(64,183,91,.18)}
+.order-form__fine{margin:.1rem 0 0;font-size:.78rem;line-height:1.5;color:var(--fg-dim)}
+.order-form__actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:.2rem}
 
 /* ---------- who ---------- */
 .roster{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:2.2rem}

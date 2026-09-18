@@ -1,13 +1,17 @@
 /* Shop page only. Fetches the live product list from /api/products
    (which reads straight from Stripe's Product catalog — that's the
-   inventory system, there's no separate database) and renders it. A
-   "Buy now" click posts to /api/checkout for that item's price and
-   redirects to the Stripe Checkout page it returns. */
+   inventory system, there's no separate database) and renders it.
+   "Reserve this item" opens an inline order form (name + shipping
+   address, no card) that posts to /api/order. No payment happens on
+   this page at all — the item is reserved, and the buyer is invoiced
+   separately once it ships. */
 (function () {
   'use strict';
 
   var root = document.getElementById('shop-root');
   if (!root) return;
+
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   function money(amount, currency) {
     try {
@@ -31,8 +35,33 @@
       '<h3 class="shop-card__name"></h3>' +
       '<p class="shop-card__desc"></p>' +
       '<p class="shop-card__price"></p>' +
-      '<button class="btn btn--primary shop-card__buy" type="button">Buy now</button>' +
-      '<p class="shop-card__msg" role="status"></p>' +
+      '<button class="btn btn--primary shop-card__buy" type="button">Reserve this item</button>' +
+      '<form class="order-form" hidden>' +
+      '  <label class="sr">Full name</label>' +
+      '  <input class="order-form__name" type="text" autocomplete="name" placeholder="Full name" required>' +
+      '  <label class="sr">Email address</label>' +
+      '  <input class="order-form__email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>' +
+      '  <label class="sr">Address line 1</label>' +
+      '  <input class="order-form__address1" type="text" autocomplete="address-line1" placeholder="Street address" required>' +
+      '  <label class="sr">Address line 2</label>' +
+      '  <input class="order-form__address2" type="text" autocomplete="address-line2" placeholder="Apt / unit (optional)">' +
+      '  <label class="sr">City</label>' +
+      '  <input class="order-form__city" type="text" autocomplete="address-level2" placeholder="City" required>' +
+      '  <label class="sr">State</label>' +
+      '  <input class="order-form__state" type="text" autocomplete="address-level1" placeholder="State" required>' +
+      '  <label class="sr">ZIP code</label>' +
+      '  <input class="order-form__zip" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="ZIP" required>' +
+      '  <p class="order-form__fine">US shipping only for now. No card, no payment here — we’ll invoice you once it ships.</p>' +
+      '  <div class="hp" aria-hidden="true">' +
+      '    <label>Leave this field blank</label>' +
+      '    <input class="order-form__hp" type="text" tabindex="-1" autocomplete="off">' +
+      '  </div>' +
+      '  <div class="order-form__actions">' +
+      '    <button class="btn btn--primary" type="submit">Confirm reservation</button>' +
+      '    <button class="btn btn--ghost order-form__cancel" type="button">Cancel</button>' +
+      '  </div>' +
+      '  <p class="signup__msg order-form__msg" role="status"></p>' +
+      '</form>' +
       '</div>';
 
     var img = li.querySelector('img');
@@ -41,27 +70,68 @@
     li.querySelector('.shop-card__desc').textContent = item.description || '';
     li.querySelector('.shop-card__price').textContent = money(item.amount, item.currency);
 
-    var btn = li.querySelector('.shop-card__buy');
-    var msg = li.querySelector('.shop-card__msg');
+    var buyBtn = li.querySelector('.shop-card__buy');
+    var form = li.querySelector('.order-form');
+    var cancelBtn = li.querySelector('.order-form__cancel');
+    var msg = li.querySelector('.order-form__msg');
 
-    btn.addEventListener('click', function () {
-      btn.disabled = true;
+    buyBtn.addEventListener('click', function () {
+      buyBtn.hidden = true;
+      form.hidden = false;
+      form.querySelector('.order-form__name').focus();
+    });
+
+    cancelBtn.addEventListener('click', function () {
+      form.hidden = true;
+      buyBtn.hidden = false;
+      msg.textContent = '';
       delete msg.dataset.state;
-      msg.textContent = 'Taking you to checkout…';
+    });
 
-      // One random key per click, sent to /api/checkout and on to Stripe.
-      // If the browser or network silently retries this exact request, the
-      // retry carries the same key — Stripe returns the original Checkout
-      // Session instead of creating a duplicate one.
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var honeypot = form.querySelector('.order-form__hp').value.trim();
+      var name = form.querySelector('.order-form__name').value.trim();
+      var email = form.querySelector('.order-form__email').value.trim();
+      var address1 = form.querySelector('.order-form__address1').value.trim();
+      var address2 = form.querySelector('.order-form__address2').value.trim();
+      var city = form.querySelector('.order-form__city').value.trim();
+      var state = form.querySelector('.order-form__state').value.trim();
+      var zip = form.querySelector('.order-form__zip').value.trim();
+
+      if (!EMAIL_RE.test(email) || !name || !address1 || !city || !state || !zip) {
+        msg.dataset.state = 'error';
+        msg.textContent = 'Fill in your name, email and full shipping address.';
+        return;
+      }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      cancelBtn.disabled = true;
+      delete msg.dataset.state;
+      msg.textContent = 'Reserving…';
+
       var idempotencyKey =
         window.crypto && window.crypto.randomUUID
           ? window.crypto.randomUUID()
           : String(Date.now()) + '-' + Math.random().toString(36).slice(2);
 
-      fetch('/api/checkout', {
+      fetch('/api/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId: item.priceId, idempotencyKey: idempotencyKey })
+        body: JSON.stringify({
+          priceId: item.priceId,
+          name: name,
+          email: email,
+          address1: address1,
+          address2: address2,
+          city: city,
+          state: state,
+          zip: zip,
+          company: honeypot,
+          idempotencyKey: idempotencyKey
+        })
       })
         .then(function (response) {
           return response.json().then(function (data) {
@@ -69,14 +139,15 @@
           });
         })
         .then(function (result) {
-          if (result.httpOk && result.data && result.data.ok && result.data.url) {
-            window.location.href = result.data.url;
+          if (result.httpOk && result.data && result.data.ok) {
+            window.location.href = 'shop-success.html';
             return;
           }
           throw new Error((result.data && result.data.message) || '');
         })
         .catch(function (err) {
-          btn.disabled = false;
+          submitBtn.disabled = false;
+          cancelBtn.disabled = false;
           msg.dataset.state = 'error';
           msg.textContent = err.message || "That didn't go through — try again in a moment.";
         });
@@ -99,14 +170,6 @@
     });
     root.innerHTML = '';
     root.appendChild(grid);
-  }
-
-  if (/[?&]cancelled=1\b/.test(window.location.search)) {
-    var note = document.createElement('p');
-    note.className = 'shop-state';
-    note.setAttribute('role', 'status');
-    note.textContent = 'No charge was made — that item is still available.';
-    root.parentNode.insertBefore(note, root);
   }
 
   fetch('/api/products')
